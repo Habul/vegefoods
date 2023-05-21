@@ -1,0 +1,22 @@
+.login,
+.image {
+	min-height: 100vh;
+}
+
+.bg-image {
+	background-image: url("https://netizennetwork.id/assets/images/tgr1.png");
+	background-size: cover;
+	background-position: center center;
+}
+
+@media screen and (min-width: 601px) {
+	.display-4 {
+		font-size: 40px;
+	}
+}
+
+@media screen and (max-width: 600px) {
+	.display-4 {
+		font-size: 40px;
+	}
+}
