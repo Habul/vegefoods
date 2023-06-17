@@ -62,60 +62,21 @@
             <div class="col-lg-3 col-6">
                <div class="small-box bg-info">
                   <div class="inner">
-                     <h3><?= $total_user ?></h3>
-                     <p>Total Users</p>
+                     <h3><?= $produk ?></h3>
+                     <p>Total Produk</p>
                   </div>
                   <div class="icon">
-                     <i class="fas fa-users"></i>
+                     <i class="fas fa-leaf"></i>
                   </div>
-                  <a href="<?= base_url('dashboard/user') ?>" class="small-box-footer">
-                     More info <i class="fas fa-arrow-circle-right"></i>
-                  </a>
-               </div>
-            </div>
-         </div>
-         <div class="row">
-            <div class="col-md-6">
-               <div class="card card-outline card-info">
-                  <div class="card-header">
-                     <h3 class="card-title"><b>History Login</b></h3>
-                     <div class="card-tools">
-                        <button type="button" class="btn btn-xs btn-icon" data-card-widget="collapse">
-                           <i class="fas fa-minus"></i>
-                        </button>
-                        <button type="button" class="btn btn-xs btn-icon" data-card-widget="maximize">
-                           <i class="fas fa-expand"></i>
-                        </button>
-                        <button type="button" class="btn btn-xs btn-icon" data-card-widget="remove">
-                           <i class="fas fa-times"></i>
-                        </button>
-                     </div>
-                  </div>
-                  <div class="card-body">
-                     <table id="index1" class="table table-hover table-sm">
-                        <thead class="thead-light text-center">
-                           <tr>
-                              <th width="6%">No</th>
-                              <th>Name</th>
-                              <th>Ip</th>
-                              <th>Os</th>
-                              <th>Browser</th>
-                              <th>Date</th>
-                           </tr>
-                        </thead>
-                        <?php $no = 1;
-                        foreach ($history_log as $log) { ?>
-                           <tr>
-                              <td class="text-center align-middle"><?= $no++ ?></td>
-                              <td class="align-middle"></td>
-                              <td class="align-middle"></td>
-                              <td class="align-middle"></td>
-                              <td class="align-middle"></td>
-                              <td class="align-middle"></td>
-                           </tr>
-                        <?php } ?>
-                     </table>
-                  </div>
+                  <?php if ($this->session->userdata('level') == 'admin') : ?>
+                     <a href="<?= base_url('dashboard/item') ?>" class="small-box-footer">
+                        More info <i class="fas fa-arrow-circle-right"></i>
+                     </a>
+                  <?php else : ?>
+                     <a href="#" class="small-box-footer">
+                        More info <i class="fas fa-arrow-circle-right"></i>
+                     </a>
+                  <?php endif ?>
                </div>
             </div>
          </div>

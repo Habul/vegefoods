@@ -106,6 +106,7 @@
                         </div>
                      </div>
                      <select name="satuan" class="form-control">
+                        <option value="">--select--</option>
                         <option value="kg">KG</option>
                         <option value="ikat">Ikat</option>
                      </select>
@@ -119,6 +120,16 @@
                         </div>
                      </div>
                      <input type="number" name="harga" class="form-control" placeholder="Input Price .." required>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="input-group">
+                     <div class="input-group-prepend">
+                        <div class="input-group-text">
+                           <span><i class="fas fa-info-circle"></i>&nbsp;&nbsp;</span>
+                        </div>
+                     </div>
+                     <textarea name="detail" class="form-control" rows="3" placeholder="Input detail produk .."></textarea>
                   </div>
                </div>
                <div class="form-group mb-0">
@@ -189,6 +200,16 @@
                            </div>
                         </div>
                         <input type="number" name="harga" class="form-control" value="<?= $u->harga ?>" required>
+                     </div>
+                  </div>
+                  <div class="form-group">
+                     <div class="input-group">
+                        <div class="input-group-prepend">
+                           <div class="input-group-text">
+                              <span><i class="fas fa-info-circle"></i>&nbsp;&nbsp;</span>
+                           </div>
+                        </div>
+                        <textarea name="detail" class="form-control" rows="3"><?= $u->detail ?></textarea>
                      </div>
                   </div>
                   <div class="form-group mb-0">

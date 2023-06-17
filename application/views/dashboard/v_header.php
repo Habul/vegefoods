@@ -39,6 +39,11 @@
                         <i class="fas fa-home"></i> Dashboard
                      </a>
                   </li>
+                  <li class="nav-item">
+                     <a href="<?= base_url('dashboard/item'); ?>" <?= $this->uri->segment(2) == 'item'   ? 'class="nav-link active"' : 'class="nav-link"' ?>>
+                        <i class="fas fa-tags"></i> List Produk
+                     </a>
+                  </li>
                   <li class="nav-item dropdown">
                      <a <?= $this->uri->segment(2) == 'new'  || $this->uri->segment(2) == 'delivery' || $this->uri->segment(2) == 'complete' ? 'class="nav-link active"' : 'class="nav-link"' ?> data-toggle="dropdown" href="#">
                         <i class="fas fa-truck-loading"></i> Transaction <i class="fas fa-angle-down"></i></a>
@@ -59,16 +64,13 @@
                         <i class="fas fa-blog"></i> Blog
                      </a>
                   </li>
-                  <li class="nav-item">
-                     <a href="<?= base_url('dashboard/user'); ?>" <?= $this->uri->segment(2) == 'user'   ? 'class="nav-link active"' : 'class="nav-link"' ?>>
-                        <i class="fas fa-users"></i> Users
-                     </a>
-                  </li>
-                  <li class="nav-item">
-                     <a href="<?= base_url('dashboard/item'); ?>" <?= $this->uri->segment(2) == 'item'   ? 'class="nav-link active"' : 'class="nav-link"' ?>>
-                        <i class="fas fa-tags"></i> List Item
-                     </a>
-                  </li>
+                  <?php if ($this->session->userdata('level') == 'admin') : ?>
+                     <li class="nav-item">
+                        <a href="<?= base_url('dashboard/user'); ?>" <?= $this->uri->segment(2) == 'user'   ? 'class="nav-link active"' : 'class="nav-link"' ?>>
+                           <i class="fas fa-users"></i> Users
+                        </a>
+                     </li>
+                  <?php endif ?>
                </ul>
             </div>
 

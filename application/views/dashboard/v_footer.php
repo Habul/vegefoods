@@ -20,9 +20,9 @@
 
 <footer class="main-footer">
    <div class="float-right d-none d-sm-inline">
-      Tugas Sistem Informasi Manajemen
+      Tugas akhir - Teknik Informatika
    </div>
-   <strong>Copyright &copy; <?= date('Y') ?> <a href="#" target="_blank">Raddin</a>.</strong> All rights reserved.
+   <strong>Copyright &copy; <?= date('Y') ?> <a href="#" target="_blank">Habul</a>.</strong> All rights reserved.
 </footer>
 </div>
 <script src="<?= base_url('assets/plugins/jquery/jquery.min.js') ?>"></script>

@@ -60,8 +60,10 @@
                               <td class="align-middle text-center">
                                  <?php if ($u->level == 'penjual') : ?>
                                     <span class="badge badge-secondary">Penjual</span>
-                                 <?php else : ?>
+                                 <?php elseif ($u->level == 'pembeli') : ?>
                                     <span class="badge badge-info">Pembeli</span>
+                                 <?php else : ?>
+                                    <span class="badge badge-warning">Admin</span>
                                  <?php endif ?>
                               </td>
                               <td class="align-middle text-center">
@@ -148,6 +150,7 @@
                      </div>
                      <select class="form-control" name="status" required>
                         <option value="">- Choose Status -</option>
+                        <option value="admin">Admin</option>
                         <option value="penjual">Penjual</option>
                         <option value="pembeli">Pembeli</option>
                      </select>
@@ -228,6 +231,9 @@
                         </div>
                         <select class="form-control" name="status" required>
                            <option value="">- Pilih status -</option>
+                           <option <?php if ($u->level == "admin") {
+                                       echo "selected='selected'";
+                                    } ?> value="admin">Admin</option>
                            <option <?php if ($u->level == "penjual") {
                                        echo "selected='selected'";
                                     } ?> value="penjual">Penjual</option>

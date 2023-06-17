@@ -69,7 +69,7 @@ class Welcome extends CI_Controller
             $cek3 = $this->db->where(['id_pengguna' => $this->session->userdata('id'), 'status' => '2'])->get('h_transaksi')->num_rows();
 
             if ($cek == 0 && $cek2 == 0 && $cek3 == 0) {
-                $produk     = $this->input->post('produk');
+                $produk      = $this->input->post('produk');
                 $jumlah      = $this->input->post('jumlah');
                 $harga       = $this->input->post('harga');
                 $id_pengguna = $this->session->userdata('id');
@@ -85,7 +85,7 @@ class Welcome extends CI_Controller
                 $data_d =
                     [
                         'id_tran' => $id_tran + 1,
-                        'produk' => $hampers,
+                        'produk'  => $produk,
                         'jumlah'  => $jumlah,
                         'harga'   => $harga
                     ];

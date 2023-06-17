@@ -43,7 +43,7 @@
                               <th width="5%">No</th>
                               <th>Name</th>
                               <th>Address</th>
-                              <th>Hampers</th>
+                              <th>Produk</th>
                               <th>Qty</th>
                               <th>Price</th>
                               <th width="9%"><i class="fas fa-cogs"></i></th>
@@ -63,7 +63,7 @@
                               <td class="align-middle text-center">
                                  <?php foreach ($detail as $d) : ?>
                                     <?php if ($d->id_tran == $u->id) : ?>
-                                       <li><?= $d->hampers; ?></li>
+                                       <li><?= $d->produk; ?></li>
                                     <?php endif ?>
                                  <?php endforeach ?>
                               </td>

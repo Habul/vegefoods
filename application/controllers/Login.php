@@ -36,7 +36,7 @@ class Login extends CI_Controller
                 $this->session->set_userdata('hp', $hasil->no_hp);
                 $this->session->set_userdata('level', $hasil->level);
                 $this->session->set_userdata('status', 'hm_log');
-                if ($hasil->level == 'penjual') {
+                if ($hasil->level == 'penjual' || $hasil->level == 'admin') {
                     $this->session->set_flashdata('info', 'Welcome ' . ucwords($hasil->nama) . ' !');
                     redirect(base_url('dashboard'));
                 } else {

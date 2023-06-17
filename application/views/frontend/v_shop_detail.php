@@ -21,7 +21,7 @@
         <?php } ?>
         <h4>Product Details</h4>
         <span>
-          Jenis snacknya bisa menyesuaikan dan varian snacknya bisa berubah tergantung ketersediaan snacknya. Perubahan snack akan diganti dgn warna yg sama dan harga yg sama juga, tapi kami tetap mendahulukan sesuai gambar. Ucapan bisa dicustom langsung lewat catatan ketika chat dan kalau tidak dicantumkan akan dikirim secara random :) Kami mengirimkan barang dengan kualitas baru Kerusakan dalam pengiriman bukan tanggung jawab kami 😊🙏Untuk lebih detailnya bisa chat langsung ya, thank you.
+          <?= ucfirst($p->detail) ?>
         </span>
       </div>
     <?php endforeach ?>

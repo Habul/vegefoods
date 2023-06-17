@@ -19,8 +19,8 @@ class Dashboard extends CI_Controller
         $data['new_order'] = $this->m_data->edit_data(['status' => '1'], 'h_transaksi')->num_rows();
         $data['delivery'] = $this->m_data->edit_data(['status' => '2'], 'h_transaksi')->num_rows();
         $data['complete'] = $this->m_data->edit_data(['status' => '3'], 'h_transaksi')->num_rows();
-        $data['produk'] = $this->m_data->get_data('produk')->result();
-        $data['total_user'] = $this->m_data->get_data('pengguna')->num_rows();
+        $data['produk'] = $this->m_data->get_data('produk')->num_rows();
+        // $data['total_user'] = $this->m_data->get_data('pengguna')->num_rows();
         $this->load->view('dashboard/v_header', $data);
         $this->load->view('dashboard/v_index', $data);
         $this->load->view('dashboard/v_footer', $data);
@@ -186,7 +186,7 @@ class Dashboard extends CI_Controller
 
     public function item()
     {
-        $data['title'] = 'Users';
+        $data['title'] = 'List Produk';
         $data['produk'] = $this->m_data->get_data('produk')->result();
         $this->load->view('dashboard/v_header', $data);
         $this->load->view('dashboard/v_item', $data);
@@ -203,6 +203,7 @@ class Dashboard extends CI_Controller
             $nama    = $this->input->post('nama');
             $satuan  = $this->input->post('satuan');
             $harga   = $this->input->post('harga');
+            $detail  = $this->input->post('detail');
 
             if (!empty($_FILES['image']['name'])) {
                 $config['upload_path']   = './assets/imgbeautyhampers/products/';
@@ -224,6 +225,7 @@ class Dashboard extends CI_Controller
                         'nama' => $nama,
                         'satuan' => $satuan,
                         'harga' => $harga,
+                        'detail' => $detail,
                         'image' => $file
                     ];
             } else {
@@ -231,7 +233,8 @@ class Dashboard extends CI_Controller
                     [
                         'nama' => $nama,
                         'satuan' => $satuan,
-                        'harga' => $harga
+                        'harga' => $harga,
+                        'detail' => $detail
                     ];
             }
 
@@ -250,16 +253,18 @@ class Dashboard extends CI_Controller
         $this->form_validation->set_rules('harga', 'Harga', 'required');
 
         if ($this->form_validation->run() != false) {
-            $nama  = $this->input->post('nama');
+            $nama   = $this->input->post('nama');
             $satuan = $this->input->post('satuan');
-            $harga = $this->input->post('harga');
-            $id    = $this->input->post('id');
+            $harga  = $this->input->post('harga');
+            $detail = $this->input->post('detail');
+            $id     = $this->input->post('id');
 
             $data =
                 [
                     'nama' => $nama,
                     'satuan' => $satuan,
                     'harga' => $harga,
+                    'detail' => $detail
                 ];
 
             $this->m_data->update_data(['id' => $id], $data, 'produk');
