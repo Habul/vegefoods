@@ -1,53 +1,41 @@
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-   <title>Vegefoods</title>
-   <meta charset="utf-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-   <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
-   <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap" rel="stylesheet">
-   <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700&display=swap" rel="stylesheet">
-   <link rel="stylesheet" href="<?= base_url('assets/css/open-iconic-bootstrap.min.css') ?>">
-   <link rel="stylesheet" href="<?= base_url('assets/css/animate.css') ?>">
-   <link rel="stylesheet" href="<?= base_url('assets/css/owl.carousel.min.css') ?>">
-   <link rel="stylesheet" href="<?= base_url('assets/css/owl.theme.default.min.css') ?>">
-   <link rel="stylesheet" href="<?= base_url('assets/css/magnific-popup.css') ?>">
-   <link rel="stylesheet" href="<?= base_url('assets/css/aos.css') ?>">
-   <link rel="stylesheet" href="<?= base_url('assets/css/ionicons.min.css') ?>">
-   <link rel="stylesheet" href="<?= base_url('assets/css/bootstrap-datepicker.css') ?>">
-   <link rel="stylesheet" href="<?= base_url('assets/css/jquery.timepicker.css') ?>">
-   <link rel="stylesheet" href="<?= base_url('assets/css/flaticon.css') ?>">
-   <link rel="stylesheet" href="<?= base_url('assets/css/icomoon.css') ?>">
-   <link rel="stylesheet" href="<?= base_url('assets/css/style.css') ?>">
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>E-Vegefoods</title>
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+  <link rel="stylesheet" href="<?= base_url('assets/css/style.css') ?>" />
+  <link href="<?= base_url('assets/img/favicon.png') ?>" rel='icon'>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 </head>
 
-<body class="goto-here">
-   <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-      <div class="container">
-         <a class="navbar-brand" href="index.html">Vegefoods</a>
-         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="oi oi-menu"></span> Menu
-         </button>
+<body cz-shortcut-listen="true">
+  <section id="header">
+    <a href="#"><img src="<?= base_url('assets/img/logo.png') ?>" width="200px" alt="" />
+    </a>
 
-         <div class="collapse navbar-collapse" id="ftco-nav">
-            <ul class="navbar-nav ml-auto">
-               <li class="nav-item active"><a href="index.html" class="nav-link">Home</a></li>
-               <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
-                  <div class="dropdown-menu" aria-labelledby="dropdown04">
-                     <a class="dropdown-item" href="shop.html">Shop</a>
-                     <a class="dropdown-item" href="wishlist.html">Wishlist</a>
-                     <a class="dropdown-item" href="product-single.html">Single Product</a>
-                     <a class="dropdown-item" href="cart.html">Cart</a>
-                     <a class="dropdown-item" href="checkout.html">Checkout</a>
-                  </div>
-               </li>
-               <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
-               <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
-               <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
-               <li class="nav-item cta cta-colored"><a href="cart.html" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
-            </ul>
-         </div>
-      </div>
-   </nav>
+    <ul id="navbar">
+      <li><a class="<?= $this->uri->segment(1) == '' ? 'active"' : '"' ?>" href="<?= base_url('/') ?>">Home</a></li>
+      <li><a class="<?= $this->uri->segment(1) == 'shop' || $this->uri->segment(1) == 'shop_detail' ? 'active"' : '"' ?>" href="<?= base_url('shop') ?>">Shop</a></li>
+      <li><a class="<?= $this->uri->segment(1) == 'blog' || $this->uri->segment(1) == 'blog_detail' ? 'active"' : '"' ?>" href="<?= base_url('blog') ?>">Blog</a></li>
+      <li><a class="<?= $this->uri->segment(1) == 'about' ? 'active"' : '"' ?>" href="<?= base_url('about') ?>">About</a></li>
+      <?php if ($this->session->userdata('status') == '') : ?>
+        <li><a class="<?= $this->uri->segment(1) == 'login' ? 'active"' : '"' ?>" href="<?= base_url('login') ?>"><i class="fas fa-sign-in-alt"></i></a></li>
+      <?php elseif ($this->session->userdata('level') == 'penjual') : ?>
+        <li><a class="<?= $this->uri->segment(1) == 'account' ? 'active"' : '"' ?>" href="<?= base_url('dashboard') ?>"><i class="fas fa-user"></i></a></li>
+      <?php else : ?>
+        <li><a class="<?= $this->uri->segment(1) == 'cart' ? 'active"' : '"' ?>" href="<?= base_url('cart') ?>" title="Cart"><i class="fas fa-shopping-cart"></i></a>
+          <?php if ($total != '0') : ?>
+            <span class="badge text-bg-warning"><?= $total ?></span>
+          <?php else : ?>
+            <span class="badge text-bg-warning"></span>
+          <?php endif ?>
+        </li>
+        <li><a href="<?= base_url('logout') ?>" title="Logout" onclick="javasciprt:return confirm('Are You Sure ?')"><i class="fas fa-power-off"></i></a></li>
+      <?php endif ?>
+    </ul>
+  </section>
