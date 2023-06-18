@@ -23,7 +23,7 @@ class Welcome extends CI_Controller
     {
         $data['now']   = $this->db->get('produk', 8, 0)->result();
         $data['new']   = $this->db->get('produk', 16, 8)->result();
-        $data['total'] = $this->m_data->shop('id_detil', ['id_pengguna' => $this->session->userdata('id'), 'status!=' => '3'])->num_rows();
+        $data['total'] = $this->m_data->shop('id_detil', ['id_pengguna' => $this->session->userdata('id'), 'status!=' => '3', 'id_produk!=' => '0'])->num_rows();
         $this->load->view('frontend/v_header', $data);
         $this->load->view('frontend/v_index', $data);
         $this->load->view('frontend/v_footer');
@@ -32,7 +32,7 @@ class Welcome extends CI_Controller
     public function shop()
     {
         $data['product'] = $this->m_data->get_data('produk')->result();
-        $data['total'] = $this->m_data->shop('id_detil', ['id_pengguna' => $this->session->userdata('id'), 'status!=' => '3'])->num_rows();
+        $data['total'] = $this->m_data->shop('id_detil', ['id_pengguna' => $this->session->userdata('id'), 'status!=' => '3', 'id_produk!=' => '0'])->num_rows();
         $this->load->view('frontend/v_header', $data);
         $this->load->view('frontend/v_shop', $data);
         $this->load->view('frontend/v_footer');
@@ -43,7 +43,7 @@ class Welcome extends CI_Controller
         $id                     = $this->uri->segment(2);
         $data['product_detail'] = $this->m_data->edit_data(['id' => $id], 'produk')->result();
         $data['id_tran']        = $this->db->select_max('id')->get('h_transaksi')->row();
-        $data['total']          = $this->m_data->shop('id_detil', ['id_pengguna' => $this->session->userdata('id'), 'status!=' => '3'])->num_rows();
+        $data['total']          = $this->m_data->shop('id_detil', ['id_pengguna' => $this->session->userdata('id'), 'status!=' => '3', 'id_produk!=' => '0'])->num_rows();
         $this->load->view('frontend/v_header', $data);
         $this->load->view('frontend/v_shop_detail', $data);
         $this->load->view('frontend/v_footer');
@@ -54,7 +54,7 @@ class Welcome extends CI_Controller
         $cari            = $this->input->get('keyword');
         $data['result']  = $this->m_data->search($cari);
         $data['keyword'] = $cari;
-        $data['total'] = $this->m_data->shop('id_detil', ['id_pengguna' => $this->session->userdata('id'), 'status!=' => '3'])->num_rows();
+        $data['total'] = $this->m_data->shop('id_detil', ['id_pengguna' => $this->session->userdata('id'), 'status!=' => '3', 'id_produk!=' => '0'])->num_rows();
         $this->load->view('frontend/v_header', $data);
         $this->load->view('frontend/v_shop_search', $data);
         $this->load->view('frontend/v_footer');
@@ -69,7 +69,7 @@ class Welcome extends CI_Controller
             $cek3 = $this->db->where(['id_pengguna' => $this->session->userdata('id'), 'status' => '2'])->get('h_transaksi')->num_rows();
 
             if ($cek == 0 && $cek2 == 0 && $cek3 == 0) {
-                $produk      = $this->input->post('produk');
+                $id_produk   = $this->input->post('id_produk');
                 $jumlah      = $this->input->post('jumlah');
                 $harga       = $this->input->post('harga');
                 $id_pengguna = $this->session->userdata('id');
@@ -85,7 +85,7 @@ class Welcome extends CI_Controller
                 $data_d =
                     [
                         'id_tran' => $id_tran + 1,
-                        'produk'  => $produk,
+                        'id_produk'  => $id_produk,
                         'jumlah'  => $jumlah,
                         'harga'   => $harga
                     ];
@@ -99,26 +99,26 @@ class Welcome extends CI_Controller
                 $cek3 = $this->db->where(['id_pengguna' => $this->session->userdata('id'), 'status' => '2'])->get('h_transaksi')->num_rows();
 
                 if ($cek2 != 0 || $cek3 != 0) {
-                    $id                     = $this->input->post('id_hampers');
-                    $data['product_detail'] = $this->m_data->edit_data(['id' => $id], 'hampers')->result();
+                    $id                     = $this->input->post('id_produk');
+                    $data['product_detail'] = $this->m_data->edit_data(['id' => $id], 'produk')->result();
                     $data['id_tran']        = $this->db->select_max('id')->get('h_transaksi')->row();
-                    $data['total']          = $this->m_data->shop('id_detil', ['id_pengguna' => $this->session->userdata('id'), 'status!=' => '3'])->num_rows();
+                    $data['total']          = $this->m_data->shop('id_detil', ['id_pengguna' => $this->session->userdata('id'), 'status!=' => '3', 'id_produk!=' => '0'])->num_rows();
                     $this->session->set_flashdata('gagal', 'Please complete the previous transaction !');
                     $this->load->view('frontend/v_header', $data);
                     $this->load->view('frontend/v_shop_detail', $data);
                     $this->load->view('frontend/v_footer');
                 } else {
-                    $produk     = $this->input->post('produk');
+                    $id_produk     = $this->input->post('id_produk');
                     $jumlah      = $this->input->post('jumlah');
                     $harga       = $this->input->post('harga');
                     $id_tran     = $this->input->post('id_tran');
 
                     $data_d =
                         [
-                            'id_tran' => $id_tran,
-                            'produk' => $produk,
-                            'jumlah'  => $jumlah,
-                            'harga'   => $harga
+                            'id_tran'   => $id_tran,
+                            'id_produk' => $id_produk,
+                            'jumlah'    => $jumlah,
+                            'harga'     => $harga
                         ];
 
                     $this->m_data->insert_data($data_d, 'd_transaksi');
@@ -132,7 +132,7 @@ class Welcome extends CI_Controller
 
     public function blog()
     {
-        $data['total'] = $this->m_data->shop('id_detil', ['id_pengguna' => $this->session->userdata('id'), 'status!=' => '3'])->num_rows();
+        $data['total'] = $this->m_data->shop('id_detil', ['id_pengguna' => $this->session->userdata('id'), 'status!=' => '3', 'id_produk!=' => '0'])->num_rows();
         $this->load->view('frontend/v_header', $data);
         $this->load->view('frontend/v_blog');
         $this->load->view('frontend/v_footer');
@@ -140,7 +140,7 @@ class Welcome extends CI_Controller
 
     public function about()
     {
-        $data['total'] = $this->m_data->shop('id_detil', ['id_pengguna' => $this->session->userdata('id'), 'status!=' => '3'])->num_rows();
+        $data['total'] = $this->m_data->shop('id_detil', ['id_pengguna' => $this->session->userdata('id'), 'status!=' => '3', 'id_produk!=' => '0'])->num_rows();
         $this->load->view('frontend/v_header', $data);
         $this->load->view('frontend/v_about');
         $this->load->view('frontend/v_footer');
@@ -150,7 +150,7 @@ class Welcome extends CI_Controller
     {
         $data['header']  = $this->m_data->shop('id_detil', ['id_pengguna' => $this->session->userdata('id'), 'status!=' => '3'])->row();
         $data['cart']  = $this->m_data->shop('id_detil', ['id_pengguna' => $this->session->userdata('id'), 'status!=' => '3'])->result();
-        $data['total'] = $this->m_data->shop('id_detil', ['id_pengguna' => $this->session->userdata('id'), 'status!=' => '3'])->num_rows();
+        $data['total'] = $this->m_data->shop('id_detil', ['id_pengguna' => $this->session->userdata('id'), 'status!=' => '3', 'id_produk!=' => '0'])->num_rows();
         $this->load->view('frontend/v_header', $data);
         $this->load->view('frontend/v_cart', $data);
         $this->load->view('frontend/v_footer');

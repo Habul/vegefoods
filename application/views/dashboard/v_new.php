@@ -63,7 +63,11 @@
                               <td class="align-middle text-center">
                                  <?php foreach ($detail as $d) : ?>
                                     <?php if ($d->id_tran == $u->id) : ?>
-                                       <li><?= $d->produk; ?></li>
+                                       <?php foreach ($produk as $p) : ?>
+                                          <?php if ($p->id == $d->id_produk) : ?>
+                                             <li><?= ucwords($p->nama_produk) ?></li>
+                                          <?php endif ?>
+                                       <?php endforeach ?>
                                     <?php endif ?>
                                  <?php endforeach ?>
                               </td>

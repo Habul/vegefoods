@@ -29,7 +29,7 @@
   </div>
 
   <div class="copyright">
-    <p>Created by <a href="">Beauty Hampers</a>. | &copy; <?= date('Y') ?></p>
+    <p>Created by <a href="">E-Vegefoods</a>. | &copy; <?= date('Y') ?></p>
   </div>
 </footer>
 

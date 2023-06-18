@@ -41,7 +41,7 @@
                   </li>
                   <li class="nav-item">
                      <a href="<?= base_url('dashboard/item'); ?>" <?= $this->uri->segment(2) == 'item'   ? 'class="nav-link active"' : 'class="nav-link"' ?>>
-                        <i class="fas fa-tags"></i> List Produk
+                        <i class="fas fa-tags"></i> Produk
                      </a>
                   </li>
                   <li class="nav-item dropdown">

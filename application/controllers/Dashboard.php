@@ -127,6 +127,7 @@ class Dashboard extends CI_Controller
         $data['title']  = 'New Orders';
         $data['new']    = $this->m_data->get_index_where('addtime', ['status' => 1], 'h_transaksi')->result();
         $data['detail'] = $this->m_data->get_data('d_transaksi')->result();
+        $data['produk'] = $this->m_data->get_data('produk')->result();
         $data['pengguna'] = $this->m_data->get_data('pengguna')->result();
         $this->load->view('dashboard/v_header', $data);
         $this->load->view('dashboard/v_new', $data);
@@ -150,7 +151,7 @@ class Dashboard extends CI_Controller
         $data =
             [
                 'id_tran' => $id,
-                'hampers' => 'shipping cost',
+                'id_produk' => '0',
                 'harga' => $distance
             ];
 
@@ -166,6 +167,7 @@ class Dashboard extends CI_Controller
         $data['delivery'] = $this->m_data->get_index_where('addtime', ['status' => 2], 'h_transaksi')->result();
         $data['detail'] = $this->m_data->get_data('d_transaksi')->result();
         $data['pengguna'] = $this->m_data->get_data('pengguna')->result();
+        $data['produk'] = $this->m_data->get_data('produk')->result();
         $this->load->view('dashboard/v_header', $data);
         $this->load->view('dashboard/v_delivery', $data);
         $this->load->view('dashboard/v_footer');
@@ -178,6 +180,7 @@ class Dashboard extends CI_Controller
         $data['complete'] = $this->m_data->get_index_where('addtime', ['status' => 3], 'h_transaksi')->result();
         $data['detail'] = $this->m_data->get_data('d_transaksi')->result();
         $data['pengguna'] = $this->m_data->get_data('pengguna')->result();
+        $data['produk'] = $this->m_data->get_data('produk')->result();
         $this->load->view('dashboard/v_header', $data);
         $this->load->view('dashboard/v_complete', $data);
         $this->load->view('dashboard/v_footer');
@@ -222,7 +225,7 @@ class Dashboard extends CI_Controller
             if ($this->input->post('image') != " ") {
                 $data =
                     [
-                        'nama' => $nama,
+                        'nama_produk' => $nama,
                         'satuan' => $satuan,
                         'harga' => $harga,
                         'detail' => $detail,
@@ -231,7 +234,7 @@ class Dashboard extends CI_Controller
             } else {
                 $data =
                     [
-                        'nama' => $nama,
+                        'nama_produk' => $nama,
                         'satuan' => $satuan,
                         'harga' => $harga,
                         'detail' => $detail
@@ -261,7 +264,7 @@ class Dashboard extends CI_Controller
 
             $data =
                 [
-                    'nama' => $nama,
+                    'nama_produk' => $nama,
                     'satuan' => $satuan,
                     'harga' => $harga,
                     'detail' => $detail
@@ -307,5 +310,119 @@ class Dashboard extends CI_Controller
         unlink(FCPATH . './assets/imgbeautyhampers/products/' . $image);
         $this->session->set_flashdata('berhasil', 'Successfully delete ' . ucwords($nama) . ' !');
         redirect(base_url('dashboard/item'));
+    }
+
+    public function blog()
+    {
+        $data['title'] = 'Blog';
+        $data['blog'] = $this->m_data->get_data('blog')->result();
+        $this->load->view('dashboard/v_header', $data);
+        $this->load->view('dashboard/v_blog', $data);
+        $this->load->view('dashboard/v_footer');
+        $this->load->view('dashboard/v_js');
+    }
+
+    public function add_blog()
+    {
+        $this->form_validation->set_rules('judul', 'Judul', 'required');
+        $this->form_validation->set_rules('detail', 'Detail', 'required');
+
+        if ($this->form_validation->run() != false) {
+            $judul  = $this->input->post('judul');
+            $detail = $this->input->post('detail');
+
+            if (!empty($_FILES['image']['name'])) {
+                $config['upload_path']   = './assets/imgbeautyhampers/blog/';
+                $config['allowed_types'] = 'gif|jpg|png|jpeg';
+                $config['overwrite']     = true;
+                $config['max_size']      = 2024;
+
+                $this->load->library('upload', $config);
+
+                if ($this->upload->do_upload('image')) {
+                    $gambar = $this->upload->data();
+                    $file = $gambar['file_name'];
+                }
+            }
+
+            if ($this->input->post('image') != " ") {
+                $data =
+                    [
+                        'judul' => $judul,
+                        'detail' => $detail,
+                        'image' => $file
+                    ];
+            } else {
+                $data =
+                    [
+                        'judul' => $judul,
+                        'detail' => $detail,
+                    ];
+            }
+
+            $this->m_data->insert_data($data, 'blog');
+            $this->session->set_flashdata('berhasil', 'Successfully added ' . ucwords($judul) . ' !');
+            redirect(base_url('dashboard/blog'));
+        } else {
+            $this->session->set_flashdata('gagal', 'Failed to add produk !');
+            redirect(base_url('dashboard/blog'));
+        }
+    }
+
+    public function edit_blog()
+    {
+        $this->form_validation->set_rules('judul', 'Judul', 'required');
+        $this->form_validation->set_rules('detail', 'Detail', 'required');
+
+        if ($this->form_validation->run() != false) {
+            $judul  = $this->input->post('judul');
+            $detail = $this->input->post('detail');
+            $id     = $this->input->post('id');
+
+            $data =
+                [
+                    'judul' => $judul,
+                    'detail' => $detail
+                ];
+
+            $this->m_data->update_data(['id' => $id], $data, 'blog');
+
+            if (!empty($_FILES['image']['name'])) {
+                $config['upload_path']   = './assets/imgbeautyhampers/blog/';
+                $config['allowed_types'] = 'gif|jpg|png|jpeg';
+                $config['overwrite']     = true;
+                $config['max_size']      = 2024;
+
+                $this->load->library('upload', $config);
+                if ($this->upload->do_upload('image')) {
+                    $gambar = $this->upload->data();
+                    $file   = $gambar['file_name'];
+                    $id     = $this->input->post('id');
+
+                    $data =
+                        [
+                            'image' => $file
+                        ];
+
+                    $this->m_data->update_data(['id' => $id], $data, 'blog');
+                }
+            }
+            $this->session->set_flashdata('berhasil', 'Successfully edit ' . ucwords($judul) . ' !');
+            redirect(base_url('dashboard/blog'));
+        } else {
+            $this->session->set_flashdata('gagal', 'Failed to edit produk !');
+            redirect(base_url('dashboard/blog'));
+        }
+    }
+
+    public function del_blog()
+    {
+        $id    = $this->input->post('id');
+        $judul = $this->input->post('judul');
+        $image = $this->input->post('image');
+        $this->m_data->delete_data(['id' => $id], 'blog');
+        unlink(FCPATH . './assets/imgbeautyhampers/blog/' . $image);
+        $this->session->set_flashdata('berhasil', 'Successfully delete ' . ucwords($judul) . ' !');
+        redirect(base_url('dashboard/blog'));
     }
 }

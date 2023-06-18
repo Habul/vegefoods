@@ -24,7 +24,7 @@
         <thead class="table-light">
           <tr>
             <th>No</th>
-            <th>Hampers</th>
+            <th>Item</th>
             <th>Qty</th>
             <th>Price</th>
             <th>Status</th>
@@ -39,7 +39,13 @@
           $total_price = array_sum($sum_price); ?>
           <tr class="align-middle">
             <td><?= $no++ ?></td>
-            <td><?= $c->hampers ?></td>
+            <td>
+              <?php if ($c->id_produk != 0) : ?>
+                <?= ucwords($c->nama_produk) ?>
+              <?php else : ?>
+                <?= 'Shipping Cost' ?>
+              <?php endif ?>
+            </td>
             <td><?= $c->jumlah ?></td>
             <td><?= $c->harga ?></td>
             <td>
@@ -79,8 +85,10 @@
             <?= $total_price ?>
           </td>
           <td colspan="2">
-            <?php if ($header->status == 1 && $header->ongkir == 0) : ?>
+            <?php if ($header->status == 1 && $header->ongkir == 1) : ?>
               Click <a href="<?= base_url('assets/img/QR_Raddin.jpg')  ?>" target="_blank" class="text-decoration-none">here</a> for payment
+            <?php elseif ($header->status == 1 && $header->ongkir == 0) : ?>
+              Wait for the seller to add postage
             <?php endif ?>
           </td>
         </tr>

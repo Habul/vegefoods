@@ -66,10 +66,11 @@ class M_data extends CI_Model
 
     public function shop($order, $where)
     {
-        $this->db->select('h.id AS id,id_pengguna,alamat,d.id AS id_detil,nama,status,produk,jumlah,harga');
+        $this->db->select('h.id AS id,id_pengguna,alamat,d.id AS id_detil,nama,status,id_produk,pr.nama_produk,jumlah,d.harga,ongkir');
         $this->db->from('h_transaksi h ');
         $this->db->join('d_transaksi d', 'h.id=d.id_tran', 'inner');
         $this->db->join('pengguna p', 'p.id=h.id_pengguna', 'inner');
+        $this->db->join('produk pr', 'pr.id=d.id_produk', 'left');
         $this->db->where($where);
         $this->db->order_by($order, 'asc');
         return $this->db->get();

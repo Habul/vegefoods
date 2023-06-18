@@ -43,7 +43,7 @@
                               <th width="5%">No</th>
                               <th>Name</th>
                               <th>Address</th>
-                              <th>Hampers</th>
+                              <th>Produk</th>
                               <th>Qty</th>
                               <th>Price</th>
                            </tr>
@@ -62,7 +62,11 @@
                               <td class="align-middle">
                                  <?php foreach ($detail as $d) : ?>
                                     <?php if ($d->id_tran == $u->id) : ?>
-                                       <li><?= $d->hampers; ?></li>
+                                       <?php foreach ($produk as $p) : ?>
+                                          <?php if ($p->id == $d->id_produk) : ?>
+                                             <li><?= ucwords($p->nama_produk) ?></li>
+                                          <?php endif ?>
+                                       <?php endforeach ?>
                                     <?php endif ?>
                                  <?php endforeach ?>
                               </td>

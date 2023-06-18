@@ -17,7 +17,7 @@
       <div class="pro" onclick="window.location.href='<?= base_url('shop/' . $p->id) ?>';">
         <img src="<?= base_url('assets/imgbeautyhampers/products/' . $p->image) ?>" alt="" />
         <div class="des">
-          <h5><?= ucwords($p->nama) ?></h5>
+          <h5><?= ucwords($p->nama_produk) ?></h5>
           <div class="star">
             <i class="fas fa-star"></i>
             <i class="fas fa-star"></i>

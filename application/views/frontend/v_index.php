@@ -41,7 +41,7 @@
       <div class="pro" onclick="window.location.href='<?= base_url('shop/' . $n->id) ?>';">
         <img src="<?= base_url('assets/imgbeautyhampers/products/' . $n->image) ?>" alt="" />
         <div class="des">
-          <h5><?= ucwords($n->nama) ?></h5>
+          <h5><?= ucwords($n->nama_produk) ?></h5>
           <div class="star">
             <i class="fas fa-star"></i>
             <i class="fas fa-star"></i>
@@ -68,7 +68,7 @@
       <div class="pro" onclick="window.location.href='<?= base_url('shop/' . $n->id) ?>';">
         <img src="<?= base_url('assets/imgbeautyhampers/products/' . $n->image) ?>" alt="" />
         <div class="des">
-          <h5><?= ucwords($n->nama) ?></h5>
+          <h5><?= ucwords($n->nama_produk) ?></h5>
           <div class="star">
             <i class="fas fa-star"></i>
             <i class="fas fa-star"></i>
