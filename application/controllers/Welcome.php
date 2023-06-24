@@ -31,8 +31,51 @@ class Welcome extends CI_Controller
 
     public function shop()
     {
-        $data['product'] = $this->m_data->get_data('produk')->result();
-        $data['total'] = $this->m_data->shop('id_detil', ['id_pengguna' => $this->session->userdata('id'), 'status!=' => '3', 'id_produk!=' => '0'])->num_rows();
+        $perPage                        = 12;
+
+        if ($this->input->get('page')) {
+            $page = $this->input->get('page');
+        } else {
+            $page = 0;
+        }
+
+        $start_index = 0;
+        if ($page != 0) {
+            $start_index = $perPage * ($page - 1);
+        }
+
+        $jumlah_data                    = $this->m_data->get_count_all('produk');
+        $config['base_url']             = site_url('shop/');
+        $config['total_rows']           = $jumlah_data;
+        $config['per_page']             = $perPage;
+        $config['enable_query_strings'] = true;
+        $config['use_page_numbers']     = true;
+        $config['page_query_string']    = true;
+        $config['query_string_segment'] = 'page';
+        $config['reuse_query_string']   = true;
+        $config['first_link']           = 'First';
+        $config['last_link']            = 'Last';
+        $config['next_link']            = 'Next';
+        $config['prev_link']            = 'Prev';
+        $config['full_tag_open']        = '<div class="pagging text-center"><nav><ul class="pagination justify-content-center">';
+        $config['full_tag_close']       = '</ul></nav></div>';
+        $config['num_tag_open']         = '<li class="page-item"><span class="page-link">';
+        $config['num_tag_close']        = '</span></li>';
+        $config['cur_tag_open']         = '<li class="page-item active"><span class="page-link">';
+        $config['cur_tag_close']        = '<span class="sr-only">(current)</span></span></li>';
+        $config['next_tag_open']        = '<li class="page-item"><span class="page-link">';
+        $config['next_tagl_close']      = '<span aria-hidden="true">&raquo;</span></span></li>';
+        $config['prev_tag_open']        = '<li class="page-item"><span class="page-link">';
+        $config['prev_tagl_close']      = '</span>Next</li>';
+        $config['first_tag_open']       = '<li class="page-item"><span class="page-link">';
+        $config['first_tagl_close']     = '</span></li>';
+        $config['last_tag_open']        = '<li class="page-item"><span class="page-link">';
+        $config['last_tagl_close']      = '</span></li>';
+        $this->pagination->initialize($config);
+        $data['page']                   = $page;
+        $data['links']                  = $this->pagination->create_links();
+        $data['product']                = $this->m_data->get_pagination($config["per_page"], $start_index, 'id desc', 'produk');
+        $data['total']                  = $this->m_data->shop('id_detil', ['id_pengguna' => $this->session->userdata('id'), 'status!=' => '3', 'id_produk!=' => '0'])->num_rows();
         $this->load->view('frontend/v_header', $data);
         $this->load->view('frontend/v_shop', $data);
         $this->load->view('frontend/v_footer');
@@ -132,8 +175,51 @@ class Welcome extends CI_Controller
 
     public function blog()
     {
+        $perPage = 12;
+
+        if ($this->input->get('page')) {
+            $page = $this->input->get('page');
+        } else {
+            $page = 0;
+        }
+
+        $start_index = 0;
+        if ($page != 0) {
+            $start_index = $perPage * ($page - 1);
+        }
+
+        $jumlah_data                    = $this->m_data->get_count_all('blog');
+        $config['base_url']             = site_url('blog/');
+        $config['total_rows']           = $jumlah_data;
+        $config['per_page']             = $perPage;
+        $config['enable_query_strings'] = true;
+        $config['use_page_numbers']     = true;
+        $config['page_query_string']    = true;
+        $config['query_string_segment'] = 'page';
+        $config['reuse_query_string']   = true;
+        $config['first_link']           = 'First';
+        $config['last_link']            = 'Last';
+        $config['next_link']            = 'Next';
+        $config['prev_link']            = 'Prev';
+        $config['full_tag_open']        = '<div class="pagging text-center"><nav><ul class="pagination justify-content-center">';
+        $config['full_tag_close']       = '</ul></nav></div>';
+        $config['num_tag_open']         = '<li class="page-item"><span class="page-link">';
+        $config['num_tag_close']        = '</span></li>';
+        $config['cur_tag_open']         = '<li class="page-item active"><span class="page-link">';
+        $config['cur_tag_close']        = '<span class="sr-only">(current)</span></span></li>';
+        $config['next_tag_open']        = '<li class="page-item"><span class="page-link">';
+        $config['next_tagl_close']      = '<span aria-hidden="true">&raquo;</span></span></li>';
+        $config['prev_tag_open']        = '<li class="page-item"><span class="page-link">';
+        $config['prev_tagl_close']      = '</span>Next</li>';
+        $config['first_tag_open']       = '<li class="page-item"><span class="page-link">';
+        $config['first_tagl_close']     = '</span></li>';
+        $config['last_tag_open']        = '<li class="page-item"><span class="page-link">';
+        $config['last_tagl_close']      = '</span></li>';
+        $this->pagination->initialize($config);
+        $data['page']                   = $page;
+        $data['links']                  = $this->pagination->create_links();
+        $data['blog']                = $this->m_data->get_pagination($config["per_page"], $start_index, 'id desc', 'blog');
         $data['total'] = $this->m_data->shop('id_detil', ['id_pengguna' => $this->session->userdata('id'), 'status!=' => '3', 'id_produk!=' => '0'])->num_rows();
-        $data['blog']  = $this->m_data->get_data('blog')->result();
         $this->load->view('frontend/v_header', $data);
         $this->load->view('frontend/v_blog', $data);
         $this->load->view('frontend/v_footer');

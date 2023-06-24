@@ -55,6 +55,20 @@ class M_data extends CI_Model
         $this->db->delete($table, $where);
     }
 
+    public function get_count_all($table)
+    {
+        return $this->db->count_all($table);
+    }
+
+    public function get_pagination($limit, $start, $index, $table)
+    {
+        $this->db->limit($limit, $start);
+        $this->db->order_by($index);
+        $query = $this->db->get($table);
+
+        return $query->result();
+    }
+
     public function search($keyword)
     {
         $this->db->select('*');

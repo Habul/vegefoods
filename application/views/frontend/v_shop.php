@@ -31,4 +31,5 @@
       </div>
     <?php endforeach ?>
   </div>
+  <?= $links ?>
 </section>
