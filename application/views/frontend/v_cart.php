@@ -9,7 +9,7 @@
   <div class="d-flex justify-content-between">
     <div class="card col-4">
       <div class="card-body">
-        <span class="fw-semibold">Transaction code : CRH-<?= $header->id ?></span>
+        <span class="fw-semibold">Transaction code : VGF-<?= $header->id ?></span>
       </div>
     </div>
     <div class="card col-6">
@@ -86,7 +86,8 @@
           </td>
           <td colspan="2">
             <?php if ($header->status == 1 && $header->ongkir == 1) : ?>
-              Click <a href="<?= base_url('assets/img/QR_Raddin.jpg')  ?>" target="_blank" class="text-decoration-none">here</a> for payment
+              Click <a href="<?= base_url('assets/img/QR_Raddin.jpg')  ?>" target="_blank" class="text-decoration-none">here</a> for payment <br />
+              Note: Please add a description when transferring
             <?php elseif ($header->status == 1 && $header->ongkir == 0) : ?>
               Wait for the seller to add postage
             <?php endif ?>

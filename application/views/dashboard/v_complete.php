@@ -42,6 +42,7 @@
                            <tr>
                               <th width="5%">No</th>
                               <th>Name</th>
+                              <th>Trans Id</th>
                               <th>Address</th>
                               <th>Produk</th>
                               <th>Qty</th>
@@ -57,6 +58,9 @@
                                        <?= ucwords($p->nama) ?>
                                     <?php endif ?>
                                  <?php endforeach ?>
+                              </td>
+                              <td class="align-middle text-center">
+                                 <?= 'VGF-' . $u->id ?>
                               </td>
                               <td class="align-middle"><?= ucwords($u->alamat) ?></td>
                               <td class="align-middle">
