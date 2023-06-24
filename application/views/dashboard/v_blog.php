@@ -43,7 +43,7 @@
                         <thead class="thead-light text-center">
                            <tr>
                               <th width="5%">No</th>
-                              <th>Judul</th>
+                              <th width="9%">Judul</th>
                               <th>Detail</th>
                               <th width="5%">Image</th>
                               <th width=" 9%"><i class="fas fa-cogs"></i></th>
@@ -53,7 +53,7 @@
                            <tr>
                               <td class="align-middle text-center"></td>
                               <td class="align-middle"><?= ucwords($h->judul) ?></td>
-                              <td class="align-middle text-center"><?= ucfirst($h->detail) ?></td>
+                              <td class="align-middle"><?= ucfirst($h->detail) ?></td>
                               <td class="align-middle text-center"><img src="<?= base_url('assets/imgbeautyhampers/blog/' . $h->image) ?>" width="100%" class="img-responsive" /></td>
                               <td class="align-middle text-center">
                                  <a class="btn btn-warning" data-toggle="modal" data-target="#modal_edit<?= $h->id; ?>" title="Edit">
