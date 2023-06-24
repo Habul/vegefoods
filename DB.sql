@@ -26,12 +26,14 @@ CREATE TABLE `blog` (
   `detail` text,
   `image` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 /*Data for the table `blog` */
 
 insert  into `blog`(`id`,`judul`,`detail`,`image`) values 
-(1,'testttt','wwww',NULL);
+(3,'Jus Tomat','Jus Tomat Kaya akan Antioksidan: Jus tomat mengandung senyawa antioksidan, terutama likopen. Likopen adalah pigmen alami yang memberikan warna merah pada tomat dan memiliki sifat antioksidan yang kuat. Antioksidan membantu melawan kerusakan sel akibat radikal bebas dalam tubuh dan dapat melindungi tubuh dari risiko penyakit degeneratif, termasuk penyakit jantung, beberapa jenis kanker, dan penuaan dini.','justomat.jpeg'),
+(4,'jus pisang','Kaya Akan Nutrisi: Jus pisang mengandung berbagai nutrisi penting seperti vitamin C, vitamin B6, kalium, magnesium, dan serat. Vitamin C adalah antioksidan yang membantu meningkatkan sistem kekebalan tubuh dan menjaga kesehatan kulit. Vitamin B6 berperan dalam metabolisme energi dan fungsi saraf. Kalium adalah elektrolit penting yang membantu menjaga keseimbangan cairan tubuh dan fungsi otot yang sehat. Magnesium berperan dalam menjaga kesehatan tulang dan sistem saraf. Serat dalam jus pisang membantu menjaga pencernaan yang sehat dan mengatur pergerakan usus.','juspisang.jpeg'),
+(5,'jus bayam','jus bayam baik untuk Mendukung Sistem Kekebalan Tubuh: Jus bayam mengandung vitamin C dan vitamin A, yang berperan penting dalam menjaga sistem kekebalan tubuh yang sehat. Vitamin C membantu meningkatkan produksi dan aktivitas sel-sel kekebalan tubuh, sementara vitamin A berperan dalam menjaga integritas sel-sel membran mukosa dan memperkuat pertahanan tubuh terhadap infeksi. Konsumsi jus bayam dapat membantu meningkatkan kekebalan tubuh dan melindungi dari penyakit.','jusbayam.jpeg');
 
 /*Table structure for table `d_transaksi` */
 
@@ -44,7 +46,7 @@ CREATE TABLE `d_transaksi` (
   `jumlah` int(13) DEFAULT NULL,
   `harga` int(13) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=latin1;
 
 /*Data for the table `d_transaksi` */
 
@@ -52,7 +54,15 @@ insert  into `d_transaksi`(`id`,`id_tran`,`id_produk`,`jumlah`,`harga`) values
 (32,1,17,1,20000),
 (33,2,18,1,34000),
 (34,3,19,1,34000),
-(35,3,0,NULL,10000);
+(35,3,0,NULL,10000),
+(36,3,19,1,34000),
+(37,4,23,1,20000),
+(38,4,20,1,35000),
+(39,4,0,NULL,10000),
+(42,5,19,1,34000),
+(43,5,0,NULL,10000),
+(44,6,27,1,20000),
+(45,6,0,NULL,8000);
 
 /*Table structure for table `h_transaksi` */
 
@@ -73,7 +83,10 @@ CREATE TABLE `h_transaksi` (
 insert  into `h_transaksi`(`id`,`id_pengguna`,`status`,`alamat`,`ongkir`,`addtime`) values 
 (1,'2',0,NULL,0,'2023-06-17 16:06:28'),
 (2,'1',0,NULL,0,'2023-06-17 17:06:03'),
-(3,'9',3,'jalan pada suka',1,'2023-06-17 17:06:07');
+(3,'9',3,'jalan pada suka',1,'2023-06-17 17:06:07'),
+(4,'9',3,'jalan ciater pamulang kota tangerang selatan',1,'2023-06-24 09:06:32'),
+(5,'9',3,'test',1,'2023-06-24 09:06:55'),
+(6,'10',3,'jalan janji jiwa no 85',1,'2023-06-24 09:06:59');
 
 /*Table structure for table `pengguna` */
 
@@ -87,7 +100,7 @@ CREATE TABLE `pengguna` (
   `no_hp` varchar(20) DEFAULT NULL,
   `level` enum('penjual','pembeli','admin') DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 /*Data for the table `pengguna` */
 
@@ -99,7 +112,8 @@ insert  into `pengguna`(`id`,`nama`,`email`,`password`,`no_hp`,`level`) values
 (6,'dosen','dosen@gmail.com','$2y$10$kKP3MOosShXib.cYf7BjhOvlOvrMWtWmoE.WOHOgpo3xdi2lDh/Y6','08623723231','pembeli'),
 (7,'agus','agus@gmail.com','$2y$10$3f6r1sKI4tcsbjTqQOxMQ.1zStvyGx5f/xoehLZ0TiOFgIm/iZfUi','081314669379','pembeli'),
 (8,'sudah','sudah@gmail.com','$2y$10$i5weFkrkV6.d7fxJOqLZGeH9bGGYGXK5C00X2erHXaPqJXCkkszkO','023023923','pembeli'),
-(9,'beli','pembeli@gmail.com','$2y$10$D7a4XxbfUGQUEQGXTaAyTeA0MPCZwa2ePgnFP0TPlTE0dl9O0lYOu','087771911287','pembeli');
+(9,'beli','pembeli@gmail.com','$2y$10$D7a4XxbfUGQUEQGXTaAyTeA0MPCZwa2ePgnFP0TPlTE0dl9O0lYOu','087771911287','pembeli'),
+(10,'janji','janji@gmail.com','$2y$10$bZjTelwJFymOPP7kW9BMLOMif6.8vI8dfJS/uY0EHToce0fVufUXe','082323283928','pembeli');
 
 /*Table structure for table `produk` */
 
