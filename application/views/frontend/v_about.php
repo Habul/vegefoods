@@ -7,7 +7,7 @@
 </section>
 
 <section id="about-head" class="section-p1">
-  <img src="<?= base_url('assets/img/about/a6.jpg') ?>" alt="" />
+  <img src="<?= base_url('assets/img/about/about.jpg') ?>" alt="" class="img-fluid" />
   <div>
     <h2>Who We Are?</h2>
     <p>
