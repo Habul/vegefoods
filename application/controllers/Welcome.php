@@ -218,7 +218,7 @@ class Welcome extends CI_Controller
         $this->pagination->initialize($config);
         $data['page']                   = $page;
         $data['links']                  = $this->pagination->create_links();
-        $data['blog']                = $this->m_data->get_pagination($config["per_page"], $start_index, 'id desc', 'blog');
+        $data['blog']                   = $this->m_data->get_pagination($config["per_page"], $start_index, 'id desc', 'blog');
         $data['total'] = $this->m_data->shop('id_detil', ['id_pengguna' => $this->session->userdata('id'), 'status!=' => '3', 'id_produk!=' => '0'])->num_rows();
         $this->load->view('frontend/v_header', $data);
         $this->load->view('frontend/v_blog', $data);

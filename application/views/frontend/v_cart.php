@@ -86,7 +86,7 @@
           </td>
           <td colspan="2">
             <?php if ($header->status == 1 && $header->ongkir == 1) : ?>
-              Click <a href="<?= base_url('assets/img/QR_Raddin.jpg')  ?>" target="_blank" class="text-decoration-none">here</a> for payment <br />
+              Click <a href="<?= base_url('assets/img/QR.jpg')  ?>" target="_blank" class="text-decoration-none">here</a> for payment <br />
               Note: Please add a description when transferring
             <?php elseif ($header->status == 1 && $header->ongkir == 0) : ?>
               Wait for the seller to add postage

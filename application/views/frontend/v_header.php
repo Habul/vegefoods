@@ -19,16 +19,16 @@
     </a>
 
     <ul id="navbar">
-      <li><a class="<?= $this->uri->segment(1) == '' ? 'active"' : '"' ?>" href="<?= base_url('/') ?>">Home</a></li>
-      <li><a class="<?= $this->uri->segment(1) == 'shop' || $this->uri->segment(1) == 'shop_detail' ? 'active"' : '"' ?>" href="<?= base_url('shop') ?>">Shop</a></li>
-      <li><a class="<?= $this->uri->segment(1) == 'blog' || $this->uri->segment(1) == 'blog_detail' ? 'active"' : '"' ?>" href="<?= base_url('blog') ?>">Blog</a></li>
-      <li><a class="<?= $this->uri->segment(1) == 'about' ? 'active"' : '"' ?>" href="<?= base_url('about') ?>">About</a></li>
+      <li><a class="<?= $this->uri->segment(1) == '' ? 'active' : '' ?>" href="<?= base_url('/') ?>">Home</a></li>
+      <li><a class="<?= $this->uri->segment(1) == 'shop' || $this->uri->segment(1) == 'shop_detail' ? 'active' : '' ?>" href="<?= base_url('shop') ?>">Shop</a></li>
+      <li><a class="<?= $this->uri->segment(1) == 'blog' || $this->uri->segment(1) == 'blog_detail' ? 'active' : '' ?>" href="<?= base_url('blog') ?>">Blog</a></li>
+      <li><a class="<?= $this->uri->segment(1) == 'about' ? 'active' : '' ?>" href="<?= base_url('about') ?>">About</a></li>
       <?php if ($this->session->userdata('status') == '') : ?>
-        <li><a class="<?= $this->uri->segment(1) == 'login' ? 'active"' : '"' ?>" href="<?= base_url('login') ?>"><i class="fas fa-sign-in-alt"></i></a></li>
+        <li><a class="<?= $this->uri->segment(1) == 'login' ? 'active' : '' ?>" href="<?= base_url('login') ?>"><i class="fas fa-sign-in-alt"></i></a></li>
       <?php elseif ($this->session->userdata('level') == 'penjual' || $this->session->userdata('level') == 'admin') : ?>
-        <li><a class="<?= $this->uri->segment(1) == 'account' ? 'active"' : '"' ?>" href="<?= base_url('dashboard') ?>"><i class="fas fa-user"></i></a></li>
+        <li><a class="<?= $this->uri->segment(1) == 'account' ? 'active' : '' ?>" href="<?= base_url('dashboard') ?>"><i class="fas fa-user"></i></a></li>
       <?php else : ?>
-        <li><a class="<?= $this->uri->segment(1) == 'cart' ? 'active"' : '"' ?>" href="<?= base_url('cart') ?>" title="Cart"><i class="fas fa-shopping-cart"></i></a>
+        <li><a class="<?= $this->uri->segment(1) == 'cart' ? 'active' : '' ?>" href="<?= base_url('cart') ?>" title="Cart"><i class="fas fa-shopping-cart"></i></a>
           <?php if ($total != '0') : ?>
             <span class="badge text-bg-warning"><?= $total ?></span>
           <?php else : ?>

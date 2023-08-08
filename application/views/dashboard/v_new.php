@@ -94,10 +94,11 @@
                                     <a class="btn btn-info" data-toggle="modal" data-target="#modal_ship<?= $u->id; ?>" title="shipping Cost">
                                        <i class="fas fa-comment-dollar"></i>
                                     </a>
+                                 <?php else : ?>
+                                    <a class="btn btn-warning" data-toggle="modal" data-target="#modal_pick<?= $u->id; ?>" title="Pickup">
+                                       <i class="fas fa-truck-loading"></i>
+                                    </a>
                                  <?php endif ?>
-                                 <a class="btn btn-warning" data-toggle="modal" data-target="#modal_pick<?= $u->id; ?>" title="Pickup">
-                                    <i class="fas fa-truck-loading"></i>
-                                 </a>
                               </td>
                            </tr>
                         <?php } ?>

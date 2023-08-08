@@ -199,7 +199,7 @@ class Dashboard extends CI_Controller
 
     public function add_item()
     {
-        $this->form_validation->set_rules('nama', 'Nama', 'required');
+        $this->form_validation->set_rules('name', 'Name Product', 'required');
         $this->form_validation->set_rules('harga', 'Harga', 'required');
 
         if ($this->form_validation->run() != false) {
@@ -212,7 +212,7 @@ class Dashboard extends CI_Controller
                 $config['upload_path']   = './assets/imgbeautyhampers/products/';
                 $config['allowed_types'] = 'gif|jpg|png|jpeg';
                 $config['overwrite']     = true;
-                $config['max_size']      = 2024;
+                $config['max_size']      = 1024;
 
                 $this->load->library('upload', $config);
 

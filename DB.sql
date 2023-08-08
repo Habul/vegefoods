@@ -46,7 +46,7 @@ CREATE TABLE `d_transaksi` (
   `jumlah` int(13) DEFAULT NULL,
   `harga` int(13) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=latin1;
 
 /*Data for the table `d_transaksi` */
 
@@ -62,7 +62,12 @@ insert  into `d_transaksi`(`id`,`id_tran`,`id_produk`,`jumlah`,`harga`) values
 (42,5,19,1,34000),
 (43,5,0,NULL,10000),
 (44,6,27,1,20000),
-(45,6,0,NULL,8000);
+(45,6,0,NULL,8000),
+(46,7,35,1,15000),
+(47,7,34,1,25000),
+(48,7,0,NULL,10000),
+(49,8,34,1,25000),
+(50,8,0,NULL,10000);
 
 /*Table structure for table `h_transaksi` */
 
@@ -86,7 +91,9 @@ insert  into `h_transaksi`(`id`,`id_pengguna`,`status`,`alamat`,`ongkir`,`addtim
 (3,'9',3,'jalan pada suka',1,'2023-06-17 17:06:07'),
 (4,'9',3,'jalan ciater pamulang kota tangerang selatan',1,'2023-06-24 09:06:32'),
 (5,'9',3,'test',1,'2023-06-24 09:06:55'),
-(6,'10',3,'jalan janji jiwa no 85',1,'2023-06-24 09:06:59');
+(6,'10',3,'jalan janji jiwa no 85',1,'2023-06-24 09:06:59'),
+(7,'11',3,'jalan indomaret tangerang 1',1,'2023-07-01 04:07:17'),
+(8,'9',2,'jalan pada suka2',1,'2023-08-08 14:08:08');
 
 /*Table structure for table `pengguna` */
 
@@ -100,7 +107,7 @@ CREATE TABLE `pengguna` (
   `no_hp` varchar(20) DEFAULT NULL,
   `level` enum('penjual','pembeli','admin') DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 /*Data for the table `pengguna` */
 
@@ -113,7 +120,8 @@ insert  into `pengguna`(`id`,`nama`,`email`,`password`,`no_hp`,`level`) values
 (7,'agus','agus@gmail.com','$2y$10$3f6r1sKI4tcsbjTqQOxMQ.1zStvyGx5f/xoehLZ0TiOFgIm/iZfUi','081314669379','pembeli'),
 (8,'sudah','sudah@gmail.com','$2y$10$i5weFkrkV6.d7fxJOqLZGeH9bGGYGXK5C00X2erHXaPqJXCkkszkO','023023923','pembeli'),
 (9,'beli','pembeli@gmail.com','$2y$10$D7a4XxbfUGQUEQGXTaAyTeA0MPCZwa2ePgnFP0TPlTE0dl9O0lYOu','087771911287','pembeli'),
-(10,'janji','janji@gmail.com','$2y$10$bZjTelwJFymOPP7kW9BMLOMif6.8vI8dfJS/uY0EHToce0fVufUXe','082323283928','pembeli');
+(10,'janji','janji@gmail.com','$2y$10$bZjTelwJFymOPP7kW9BMLOMif6.8vI8dfJS/uY0EHToce0fVufUXe','082323283928','pembeli'),
+(11,'agung','agung@gmail.com','$2y$10$0Aaygah9cg4ls9uk1.G/e.Q7pceh.QmeBj5yLxMiJfMPApQu76ZOe','083832932839','pembeli');
 
 /*Table structure for table `produk` */
 
