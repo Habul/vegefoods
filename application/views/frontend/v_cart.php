@@ -111,6 +111,11 @@
               '<i class="fas fa-check-double"></i> Confrim',
               'title="Confrim" class="btn btn-success mx-3" onclick="javasciprt: return confirm(\'Are You Sure ?\')"'
             ); ?>
+            <?= anchor(
+              site_url('welcome/retur/' . $c->id),
+              '<i class="fas fa-undo-alt"></i> Retur',
+              'title="Retur" class="btn btn-warning mx-3" onclick="javasciprt: return confirm(\'Are You Sure ?\')"'
+            ); ?>
           <?php endif ?>
         </div>
       <?php endif ?>

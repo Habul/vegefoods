@@ -283,6 +283,12 @@ class Welcome extends CI_Controller
         redirect(base_url('cart'));
     }
 
+    public function retur($id)
+    {
+        $this->m_data->update_data(['id' => $id], ['status' => '1'], 'h_transaksi');
+        redirect(base_url('cart'));
+    }
+
     public function login()
     {
         $this->load->view('frontend/v_header');

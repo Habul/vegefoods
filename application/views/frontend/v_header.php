@@ -26,7 +26,7 @@
       <?php if ($this->session->userdata('status') == '') : ?>
         <li><a class="<?= $this->uri->segment(1) == 'login' ? 'active' : '' ?>" href="<?= base_url('login') ?>"><i class="fas fa-sign-in-alt"></i></a></li>
       <?php elseif ($this->session->userdata('level') == 'penjual' || $this->session->userdata('level') == 'admin') : ?>
-        <li><a class="<?= $this->uri->segment(1) == 'account' ? 'active' : '' ?>" href="<?= base_url('dashboard') ?>"><i class="fas fa-user"></i></a></li>
+        <li><a href="<?= base_url('dashboard') ?>"><i class="fas fa-user"></i></a></li>
       <?php else : ?>
         <li><a class="<?= $this->uri->segment(1) == 'cart' ? 'active' : '' ?>" href="<?= base_url('cart') ?>" title="Cart"><i class="fas fa-shopping-cart"></i></a>
           <?php if ($total != '0') : ?>
@@ -35,7 +35,8 @@
             <span class="badge text-bg-warning"></span>
           <?php endif ?>
         </li>
-        <li><a href="<?= base_url('logout') ?>" title="Logout" onclick="javasciprt:return confirm('Are You Sure ?')"><i class="fas fa-power-off"></i></a></li>
+        <li><a class="<?= $this->uri->segment(1) == 'history' ? 'active' : '' ?>" href="<?= base_url('history') ?>" title="History"><i class="fas fa-clipboard-check"></i></a></li>
+        <li><a href="<?= base_url('logout') ?>" title="Logout" onclick="javasciprt:return confirm('Are You Sure ?')" title="Logout"><i class="fas fa-power-off"></i></a></li>
       <?php endif ?>
     </ul>
   </section>

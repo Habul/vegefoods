@@ -52,6 +52,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 */
 $route['default_controller'] = 'welcome';
 $route['shop'] = 'welcome/shop';
+$route['history'] = 'welcome/history';
 $route['shop/(:num)'] = 'welcome/shop_detail/(:num)';
 $route['shop/shop_search'] = 'welcome/shop_search';
 $route['blog'] = 'welcome/blog';
