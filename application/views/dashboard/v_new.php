@@ -3,7 +3,7 @@
       <div class="container-fluid">
          <div class="row mb-2">
             <div class="col-sm-6">
-               <h1 class="m-0">New Order</h1>
+               <h1 class="m-0">New Order & Retur Order</h1>
             </div>
             <div class="col-sm-6">
                <ol class="breadcrumb float-sm-right">
@@ -22,7 +22,7 @@
                <div class="card card-warning card-outline">
                   <div class="card-header">
                      <h4 class="card-title">
-                        New orders
+                        New orders & Retur orders
                      </h4>
                      <div class="card-tools">
                         <button type="button" class="btn btn-xs btn-icon btn-circle" data-card-widget="collapse">
@@ -61,7 +61,7 @@
                                  <?php endforeach ?>
                               </td>
                               <td class="align-middle text-center">
-                                 <?= 'VGF-' . $u->id ?>
+                                 <?= 'VGF-' . $u->id_pengguna . '.' . $u->id ?>
                               </td>
                               <td class="align-middle"><?= ucwords($u->alamat) ?></td>
                               <td class="align-middle text-center">
@@ -76,19 +76,11 @@
                                  <?php endforeach ?>
                               </td>
                               <td class="align-middle text-center">
-                                 <?php foreach ($detail as $d) : ?>
-                                    <?php if ($d->id_tran == $u->id) :
-                                       $sum_qty[] = $d->jumlah;
-                                       $total_qty = array_sum($sum_qty);
-                                       $sum_price[] = $d->harga;
-                                       $total_price = array_sum($sum_price); ?>
-                                    <?php endif ?>
-                                 <?php endforeach ?>
-                                 <?= $total_qty ?>
+                                 <?php $sum = $this->db->select_sum('jumlah')->where(['id_tran' => $u->id])->get('d_transaksi')->row();
+                                 $sum2 = $this->db->select_sum('harga')->where(['id_tran' => $u->id, 'id_produk!=' => '0'])->get('d_transaksi')->row() ?>
+                                 <?= $sum->jumlah ?>
                               </td>
-                              <td class="align-middle text-center">
-                                 <?= number_format($total_price, 0, ",", ".") ?>
-                              </td>
+                              <td class="align-middle text-center"><?= number_format($sum2->harga, 0, ",", ".") ?></td>
                               <td class="align-middle text-center">
                                  <?php if ($u->ongkir == 0) : ?>
                                     <a class="btn btn-info" data-toggle="modal" data-target="#modal_ship<?= $u->id; ?>" title="shipping Cost">

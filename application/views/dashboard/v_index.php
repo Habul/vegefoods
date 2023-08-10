@@ -21,7 +21,7 @@
                <div class="small-box bg-warning">
                   <div class="inner">
                      <h3><?= $new_order ?></h3>
-                     <p>New Orders</p>
+                     <p>New Orders & Retur Orders</p>
                   </div>
                   <div class="icon">
                      <i class="fas fa-cart-plus"></i>

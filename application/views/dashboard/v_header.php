@@ -49,7 +49,7 @@
                         <i class="fas fa-truck-loading"></i> Transaction <i class="fas fa-angle-down"></i></a>
                      <div class="dropdown-menu">
                         <a href="<?= base_url('dashboard/new'); ?>" class="dropdown-item"><i class="fas fa-cart-plus"></i>
-                           New Order
+                           New Order & Retur Order
                         </a>
                         <a href="<?= base_url('dashboard/delivery'); ?>" class="dropdown-item"><i class="fas fa-truck"></i>
                            Delivery Order

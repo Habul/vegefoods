@@ -60,7 +60,7 @@
                                  <?php endforeach ?>
                               </td>
                               <td class="align-middle text-center">
-                                 <?= 'VGF-' . $u->id ?>
+                                 <?= 'VGF-' . $u->id_pengguna . '.' . $u->id ?>
                               </td>
                               <td class="align-middle"><?= ucwords($u->alamat) ?></td>
                               <td class="align-middle">
@@ -75,17 +75,11 @@
                                  <?php endforeach ?>
                               </td>
                               <td class="align-middle text-center">
-                                 <?php foreach ($detail as $d) : ?>
-                                    <?php if ($d->id_tran == $u->id) :
-                                       $sum_qty[] = $d->jumlah;
-                                       $total_qty = array_sum($sum_qty);
-                                       $sum_price[] = $d->harga;
-                                       $total_price = array_sum($sum_price); ?>
-                                    <?php endif ?>
-                                 <?php endforeach ?>
-                                 <?= $total_qty ?>
+                                 <?php $sum = $this->db->select_sum('jumlah')->where(['id_tran' => $u->id])->get('d_transaksi')->row();
+                                 $sum2 = $this->db->select_sum('harga')->where(['id_tran' => $u->id, 'id_produk!=' => '0'])->get('d_transaksi')->row() ?>
+                                 <?= $sum->jumlah ?>
                               </td>
-                              <td class="align-middle text-center"><?= number_format($total_price, 0, ",", ".") ?></td>
+                              <td class="align-middle text-center"><?= number_format($sum2->harga, 0, ",", ".") ?></td>
                            </tr>
                         <?php } ?>
                      </table>

@@ -265,6 +265,19 @@ class Welcome extends CI_Controller
         }
     }
 
+    public function history()
+    {
+        $id = $this->session->userdata('id');
+        $data['header']   = $this->m_data->get_index_where('addtime', ['id_pengguna' => $id, 'status' => '3'], 'h_transaksi')->result();
+        $data['detail']   = $this->m_data->get_data('d_transaksi')->result();
+        $data['pengguna'] = $this->m_data->edit_data(['id' => $id], 'pengguna')->result();
+        $data['produk']   = $this->m_data->get_data('produk')->result();
+        $data['total']    = $this->m_data->shop('id_detil', ['id_pengguna' => $this->session->userdata('id'), 'status!=' => '3', 'id_produk!=' => '0'])->num_rows();
+        $this->load->view('frontend/v_header', $data);
+        $this->load->view('frontend/v_history', $data);
+        $this->load->view('frontend/v_footer');
+    }
+
     public function delete($id)
     {
         $this->m_data->delete_data(['id' => $id], 'd_transaksi');
@@ -285,7 +298,7 @@ class Welcome extends CI_Controller
 
     public function retur($id)
     {
-        $this->m_data->update_data(['id' => $id], ['status' => '1'], 'h_transaksi');
+        $this->m_data->update_data(['id' => $id], ['status' => '4'], 'h_transaksi');
         redirect(base_url('cart'));
     }
 

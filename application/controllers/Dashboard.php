@@ -125,7 +125,7 @@ class Dashboard extends CI_Controller
     public function new()
     {
         $data['title']  = 'New Orders';
-        $data['new']    = $this->m_data->get_index_where('addtime', ['status' => 1], 'h_transaksi')->result();
+        $data['new']    = $this->m_data->get_index_where('addtime', ['status' => 1, 'status' => 4], 'h_transaksi')->result();
         $data['detail'] = $this->m_data->get_data('d_transaksi')->result();
         $data['produk'] = $this->m_data->get_data('produk')->result();
         $data['pengguna'] = $this->m_data->get_data('pengguna')->result();

@@ -40,7 +40,7 @@
             title: 'Report Complete Orders',
             footer: true,
             exportOptions: {
-               columns: [1, 2, 3, 4, 5],
+               columns: [1, 2, 3, 4, 5, 6],
                orthogonal: 'export',
             },
          },
@@ -50,7 +50,7 @@
             title: 'Report Complete Orders',
             footer: true,
             exportOptions: {
-               columns: [1, 2, 3, 4, 5],
+               columns: [1, 2, 3, 4, 5, 6],
                orthogonal: 'export'
             },
          },
@@ -60,7 +60,7 @@
             title: 'Report Complete Orders',
             footer: true,
             exportOptions: {
-               columns: [1, 2, 3, 4, 5],
+               columns: [1, 2, 3, 4, 5, 6],
                orthogonal: 'export',
                modifier: {
                   orientation: 'landscape'

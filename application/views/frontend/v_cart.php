@@ -9,7 +9,7 @@
   <div class="d-flex justify-content-between">
     <div class="card col-4">
       <div class="card-body">
-        <span class="fw-semibold">Transaction code : VGF-<?= $header->id ?></span>
+        <span class="fw-semibold">Transaction code : VGF-<?= $header->id_pengguna . '.' . $header->id ?></span>
       </div>
     </div>
     <div class="card col-6">
@@ -21,7 +21,7 @@
   <div class="card shadow-sm mt-2 mb-2">
     <div class="card-body">
       <table class="table table-hover">
-        <thead class="table-light">
+        <thead>
           <tr>
             <th>No</th>
             <th>Item</th>
@@ -57,6 +57,8 @@
                 <span class="badge text-bg-secondary">Is on delivery</span>
               <?php elseif ($c->status == 3) : ?>
                 <span class="badge text-bg-success">Finished</span>
+              <?php else : ?>
+                <span class="badge text-bg-warning">Retur</span>
               <?php endif ?>
             </td>
             <td>

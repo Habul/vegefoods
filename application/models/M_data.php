@@ -37,13 +37,6 @@ class M_data extends CI_Model
         return $this->db->get_where($table, $where);
     }
 
-    function get_where($where, $table)
-    {
-        $this->db->select('*');
-        $this->db->where($where);
-        return $this->db->get($table);
-    }
-
     public function update_data($where, $data, $table)
     {
         $this->db->where($where);
@@ -81,7 +74,7 @@ class M_data extends CI_Model
     public function shop($order, $where)
     {
         $this->db->select('h.id AS id,id_pengguna,alamat,d.id AS id_detil,nama,status,id_produk,pr.nama_produk,jumlah,d.harga,ongkir');
-        $this->db->from('h_transaksi h ');
+        $this->db->from('h_transaksi h');
         $this->db->join('d_transaksi d', 'h.id=d.id_tran', 'inner');
         $this->db->join('pengguna p', 'p.id=h.id_pengguna', 'inner');
         $this->db->join('produk pr', 'pr.id=d.id_produk', 'left');
