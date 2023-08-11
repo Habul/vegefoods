@@ -1,6 +1,6 @@
 /*
 SQLyog Ultimate v13.1.1 (64 bit)
-MySQL - 5.7.35-log : Database - vegefoods
+MySQL - 8.0.30 : Database - vegefoods
 *********************************************************************
 */
 
@@ -12,7 +12,7 @@ MySQL - 5.7.35-log : Database - vegefoods
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`vegefoods` /*!40100 DEFAULT CHARACTER SET latin1 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`vegefoods` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 
 USE `vegefoods`;
 
@@ -21,7 +21,7 @@ USE `vegefoods`;
 DROP TABLE IF EXISTS `blog`;
 
 CREATE TABLE `blog` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `judul` varchar(50) DEFAULT NULL,
   `detail` text,
   `image` varchar(255) DEFAULT NULL,
@@ -40,13 +40,13 @@ insert  into `blog`(`id`,`judul`,`detail`,`image`) values
 DROP TABLE IF EXISTS `d_transaksi`;
 
 CREATE TABLE `d_transaksi` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_tran` int(11) NOT NULL,
-  `id_produk` int(11) DEFAULT NULL,
-  `jumlah` int(13) DEFAULT NULL,
-  `harga` int(13) DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_tran` int NOT NULL,
+  `id_produk` int DEFAULT NULL,
+  `jumlah` int DEFAULT NULL,
+  `harga` int DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=latin1;
 
 /*Data for the table `d_transaksi` */
 
@@ -67,71 +67,89 @@ insert  into `d_transaksi`(`id`,`id_tran`,`id_produk`,`jumlah`,`harga`) values
 (47,7,34,1,25000),
 (48,7,0,NULL,10000),
 (49,8,34,1,25000),
-(50,8,0,NULL,10000);
+(50,8,0,NULL,10000),
+(51,9,34,1,25000),
+(52,9,33,1,17500),
+(53,9,0,NULL,8000),
+(54,10,33,1,17500),
+(55,10,29,1,27000),
+(56,10,0,NULL,8000),
+(57,11,30,1,12000),
+(58,11,0,NULL,10000),
+(59,12,34,1,25000),
+(60,12,0,NULL,10000),
+(61,13,36,1,5000),
+(62,13,35,1,15000),
+(63,13,0,NULL,10000);
 
 /*Table structure for table `h_transaksi` */
 
 DROP TABLE IF EXISTS `h_transaksi`;
 
 CREATE TABLE `h_transaksi` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `id_pengguna` varchar(255) DEFAULT NULL,
-  `status` int(1) DEFAULT '0',
+  `status` int DEFAULT '0',
   `alamat` text,
-  `ongkir` int(1) DEFAULT '0',
+  `ongkir` int DEFAULT '0',
+  `note` text,
   `addtime` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `h_transaksi` */
 
-insert  into `h_transaksi`(`id`,`id_pengguna`,`status`,`alamat`,`ongkir`,`addtime`) values 
-(1,'2',0,NULL,0,'2023-06-17 16:06:28'),
-(2,'1',0,NULL,0,'2023-06-17 17:06:03'),
-(3,'9',3,'jalan pada suka',1,'2023-06-17 17:06:07'),
-(4,'9',3,'jalan ciater pamulang kota tangerang selatan',1,'2023-06-24 09:06:32'),
-(5,'9',3,'test',1,'2023-06-24 09:06:55'),
-(6,'10',3,'jalan janji jiwa no 85',1,'2023-06-24 09:06:59'),
-(7,'11',3,'jalan indomaret tangerang 1',1,'2023-07-01 04:07:17'),
-(8,'9',2,'jalan pada suka2',1,'2023-08-08 14:08:08');
+insert  into `h_transaksi`(`id`,`id_pengguna`,`status`,`alamat`,`ongkir`,`note`,`addtime`) values 
+(3,'9',3,'jalan pada suka',1,NULL,'2023-06-17 17:06:07'),
+(4,'9',3,'jalan ciater pamulang kota tangerang selatan',1,NULL,'2023-06-24 09:06:32'),
+(5,'9',3,'test',1,NULL,'2023-06-24 09:06:55'),
+(6,'10',3,'jalan janji jiwa no 85',1,NULL,'2023-06-24 09:06:59'),
+(7,'11',3,'jalan indomaret tangerang 1',1,NULL,'2023-07-01 04:07:17'),
+(8,'9',3,'jalan pada suka2',1,NULL,'2023-08-08 14:08:08'),
+(9,'9',3,'jalan pada suka ',1,NULL,'2023-08-09 09:08:52'),
+(10,'9',3,'jalan kadu bitung',1,NULL,'2023-08-10 10:08:58'),
+(11,'9',3,'xxxxx',1,NULL,'2023-08-10 11:08:17'),
+(12,'9',3,'wwwwwwwwwwwww',1,NULL,'2023-08-10 12:08:07'),
+(13,'11',3,'jalan pemda curug no 1a',1,'sayuran sudah layu','2023-08-11 02:08:57');
 
 /*Table structure for table `pengguna` */
 
 DROP TABLE IF EXISTS `pengguna`;
 
 CREATE TABLE `pengguna` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `nama` varchar(100) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
   `no_hp` varchar(20) DEFAULT NULL,
   `level` enum('penjual','pembeli','admin') DEFAULT NULL,
+  `address` text,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 /*Data for the table `pengguna` */
 
-insert  into `pengguna`(`id`,`nama`,`email`,`password`,`no_hp`,`level`) values 
-(1,'admin','admin@gmail.com','$2y$10$/inP0yRPNAL2kgxiAtqA4ewF5JyDqly3I/r2IfQRMG5bMWxhn2hD2','08237238238','admin'),
-(2,'penjual','penjual@gmail.com','$2y$10$D7a4XxbfUGQUEQGXTaAyTeA0MPCZwa2ePgnFP0TPlTE0dl9O0lYOu',NULL,'penjual'),
-(3,'zahira','zahira@gmail.com','$2y$10$cY45oa2WNmtP/R9VYKwTm.44HT744RPVAWg0WA7nxv9HEn6s6qdH6',NULL,'pembeli'),
-(5,'test','test@gmail.com','$2y$10$.NAGn2J.AmKbDxFvNA/cPeGXGl7HfTU.3K0H3wSM3URXddupmTdW.','082372382732','pembeli'),
-(6,'dosen','dosen@gmail.com','$2y$10$kKP3MOosShXib.cYf7BjhOvlOvrMWtWmoE.WOHOgpo3xdi2lDh/Y6','08623723231','pembeli'),
-(7,'agus','agus@gmail.com','$2y$10$3f6r1sKI4tcsbjTqQOxMQ.1zStvyGx5f/xoehLZ0TiOFgIm/iZfUi','081314669379','pembeli'),
-(8,'sudah','sudah@gmail.com','$2y$10$i5weFkrkV6.d7fxJOqLZGeH9bGGYGXK5C00X2erHXaPqJXCkkszkO','023023923','pembeli'),
-(9,'beli','pembeli@gmail.com','$2y$10$D7a4XxbfUGQUEQGXTaAyTeA0MPCZwa2ePgnFP0TPlTE0dl9O0lYOu','087771911287','pembeli'),
-(10,'janji','janji@gmail.com','$2y$10$bZjTelwJFymOPP7kW9BMLOMif6.8vI8dfJS/uY0EHToce0fVufUXe','082323283928','pembeli'),
-(11,'agung','agung@gmail.com','$2y$10$0Aaygah9cg4ls9uk1.G/e.Q7pceh.QmeBj5yLxMiJfMPApQu76ZOe','083832932839','pembeli');
+insert  into `pengguna`(`id`,`nama`,`email`,`password`,`no_hp`,`level`,`address`) values 
+(1,'admin','admin@gmail.com','$2y$10$/inP0yRPNAL2kgxiAtqA4ewF5JyDqly3I/r2IfQRMG5bMWxhn2hD2','08237238238','admin',NULL),
+(2,'penjual','penjual@gmail.com','$2y$10$D7a4XxbfUGQUEQGXTaAyTeA0MPCZwa2ePgnFP0TPlTE0dl9O0lYOu','081314669379','penjual','jalan ciater pamulang no 1A'),
+(3,'zahira','zahira@gmail.com','$2y$10$cY45oa2WNmtP/R9VYKwTm.44HT744RPVAWg0WA7nxv9HEn6s6qdH6',NULL,'pembeli',NULL),
+(5,'test','test@gmail.com','$2y$10$.NAGn2J.AmKbDxFvNA/cPeGXGl7HfTU.3K0H3wSM3URXddupmTdW.','082372382732','pembeli',NULL),
+(6,'dosen','dosen@gmail.com','$2y$10$kKP3MOosShXib.cYf7BjhOvlOvrMWtWmoE.WOHOgpo3xdi2lDh/Y6','08623723231','pembeli',NULL),
+(7,'agus','agus@gmail.com','$2y$10$3f6r1sKI4tcsbjTqQOxMQ.1zStvyGx5f/xoehLZ0TiOFgIm/iZfUi','081314669379','pembeli',NULL),
+(8,'sudah','sudah@gmail.com','$2y$10$i5weFkrkV6.d7fxJOqLZGeH9bGGYGXK5C00X2erHXaPqJXCkkszkO','023023923','pembeli',NULL),
+(9,'beli','pembeli@gmail.com','$2y$10$D7a4XxbfUGQUEQGXTaAyTeA0MPCZwa2ePgnFP0TPlTE0dl9O0lYOu','087771911287','pembeli',NULL),
+(10,'janji','janji@gmail.com','$2y$10$bZjTelwJFymOPP7kW9BMLOMif6.8vI8dfJS/uY0EHToce0fVufUXe','082323283928','pembeli',NULL),
+(11,'agung','agung@gmail.com','$2y$10$0Aaygah9cg4ls9uk1.G/e.Q7pceh.QmeBj5yLxMiJfMPApQu76ZOe','083832932839','pembeli',NULL);
 
 /*Table structure for table `produk` */
 
 DROP TABLE IF EXISTS `produk`;
 
 CREATE TABLE `produk` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `nama_produk` varchar(255) DEFAULT NULL,
   `satuan` varchar(10) DEFAULT NULL,
-  `harga` int(15) DEFAULT NULL,
+  `harga` int DEFAULT NULL,
   `image` varchar(255) DEFAULT NULL,
   `detail` text,
   PRIMARY KEY (`id`)
