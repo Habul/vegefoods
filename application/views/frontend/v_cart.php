@@ -77,19 +77,19 @@
           </tr>
         <?php endforeach ?>
         <tr class="fw-semibold">
-          <td colspan=" 2">
+          <td colspan="2" class="align-middle text-center">
             Total
           </td>
-          <td>
+          <td class="align-middle text-center">
             <?= $total_qty ?>
           </td>
-          <td>
+          <td class="align-middle text-center">
             <?= $total_price ?>
           </td>
           <td colspan="2">
             <?php if ($header->status == 1 && $header->ongkir == 1) : ?>
               Click <a href="<?= base_url('assets/img/QR.jpg')  ?>" target="_blank" class="text-decoration-none">here</a> for payment <br />
-              Note: Please add a description when transferring
+              Note: Please add a description when transferring if you have already paid, <br>please ignore it and wait for the seller to deliver
             <?php elseif ($header->status == 1 && $header->ongkir == 0) : ?>
               Wait for the seller to add postage
             <?php endif ?>
@@ -113,11 +113,7 @@
               '<i class="fas fa-check-double"></i> Confrim',
               'title="Confrim" class="btn btn-success mx-3" onclick="javasciprt: return confirm(\'Are You Sure ?\')"'
             ); ?>
-            <?= anchor(
-              site_url('welcome/retur/' . $c->id),
-              '<i class="fas fa-undo-alt"></i> Retur',
-              'title="Retur" class="btn btn-warning mx-3" onclick="javasciprt: return confirm(\'Are You Sure ?\')"'
-            ); ?>
+            <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#retur"><i class="fas fa-undo-alt"></i> Retur</button>
           <?php endif ?>
         </div>
       <?php endif ?>
@@ -142,9 +138,31 @@
             <textarea name="alamat" class="form-control" rows="3"><?= $c->alamat ?></textarea>
           </div>
         </div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button class="btn btn-primary">Save</button>
+        <div class="modal-footer justify-content-center">
+          <button class="btn btn-primary"><i class="fa fa-check"></i> Save</button>
+        </div>
+        <?= form_close(); ?>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="retur" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title fs-5" id="exampleModalLabel">Note Retur</h3>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <?= form_open(base_url('welcome/retur')); ?>
+        <div class="modal-body">
+          <div class="form-group mb-2">
+            <input type="hidden" name="id" value="<?= $c->id ?>">
+            <textarea name="note" class="form-control" rows="2"><?= $c->note ?></textarea>
+            <small>Note : If retur please send to alamat this <?= ucwords($penjual->address) ?></small>
+          </div>
+        </div>
+        <div class="modal-footer justify-content-center">
+          <button class="btn btn-warning col-6"><i class="fa fa-check"></i> Save</button>
         </div>
         <?= form_close(); ?>
       </div>

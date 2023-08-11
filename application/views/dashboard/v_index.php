@@ -26,9 +26,15 @@
                   <div class="icon">
                      <i class="fas fa-cart-plus"></i>
                   </div>
-                  <a href="<?= base_url('dashboard/new') ?>" class="small-box-footer">
-                     More info <i class="fas fa-arrow-circle-right"></i>
-                  </a>
+                  <?php if ($this->session->userdata('level') == 'penjual') : ?>
+                     <a href="<?= base_url('dashboard/new') ?>" class="small-box-footer">
+                        More info <i class="fas fa-arrow-circle-right"></i>
+                     </a>
+                  <?php else : ?>
+                     <a href="#" class="small-box-footer">
+                        More info <i class="fas fa-arrow-circle-right"></i>
+                     </a>
+                  <?php endif ?>
                </div>
             </div>
             <div class="col-lg-3 col-6">
@@ -40,9 +46,15 @@
                   <div class="icon">
                      <i class="fas fa-truck"></i>
                   </div>
-                  <a href="<?= base_url('dashboard/delivery') ?>" class="small-box-footer">
-                     More info <i class="fas fa-arrow-circle-right"></i>
-                  </a>
+                  <?php if ($this->session->userdata('level') == 'penjual') : ?>
+                     <a href="<?= base_url('dashboard/delivery') ?>" class="small-box-footer">
+                        More info <i class="fas fa-arrow-circle-right"></i>
+                     </a>
+                  <?php else : ?>
+                     <a href="#" class="small-box-footer">
+                        More info <i class="fas fa-arrow-circle-right"></i>
+                     </a>
+                  <?php endif ?>
                </div>
             </div>
             <div class="col-lg-3 col-6">
@@ -54,9 +66,15 @@
                   <div class="icon">
                      <i class="fas fa-check-double"></i>
                   </div>
-                  <a href="<?= base_url('dashboard/complete') ?>" class="small-box-footer">
-                     More info <i class="fas fa-arrow-circle-right"></i>
-                  </a>
+                  <?php if ($this->session->userdata('level') == 'penjual') : ?>
+                     <a href="<?= base_url('dashboard/complete') ?>" class="small-box-footer">
+                        More info <i class="fas fa-arrow-circle-right"></i>
+                     </a>
+                  <?php else : ?>
+                     <a href="#" class="small-box-footer">
+                        More info <i class="fas fa-arrow-circle-right"></i>
+                     </a>
+                  <?php endif ?>
                </div>
             </div>
             <div class="col-lg-3 col-6">
@@ -68,7 +86,7 @@
                   <div class="icon">
                      <i class="fas fa-leaf"></i>
                   </div>
-                  <?php if ($this->session->userdata('level') == 'admin') : ?>
+                  <?php if ($this->session->userdata('level') == 'penjual') : ?>
                      <a href="<?= base_url('dashboard/item') ?>" class="small-box-footer">
                         More info <i class="fas fa-arrow-circle-right"></i>
                      </a>

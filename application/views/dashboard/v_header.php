@@ -39,32 +39,42 @@
                         <i class="fas fa-home"></i> Dashboard
                      </a>
                   </li>
-                  <li class="nav-item">
-                     <a href="<?= base_url('dashboard/item'); ?>" <?= $this->uri->segment(2) == 'item'   ? 'class="nav-link active"' : 'class="nav-link"' ?>>
-                        <i class="fas fa-tags"></i> Produk
-                     </a>
-                  </li>
-                  <li class="nav-item dropdown">
-                     <a <?= $this->uri->segment(2) == 'new'  || $this->uri->segment(2) == 'delivery' || $this->uri->segment(2) == 'complete' ? 'class="nav-link active"' : 'class="nav-link"' ?> data-toggle="dropdown" href="#">
-                        <i class="fas fa-truck-loading"></i> Transaction <i class="fas fa-angle-down"></i></a>
-                     <div class="dropdown-menu">
-                        <a href="<?= base_url('dashboard/new'); ?>" class="dropdown-item"><i class="fas fa-cart-plus"></i>
-                           New Order & Retur Order
+                  <?php if ($this->session->userdata('level') == 'penjual') : ?>
+                     <li class="nav-item">
+                        <a href="<?= base_url('dashboard/item'); ?>" <?= $this->uri->segment(2) == 'item'   ? 'class="nav-link active"' : 'class="nav-link"' ?>>
+                           <i class="fas fa-tags"></i> Produk
                         </a>
-                        <a href="<?= base_url('dashboard/delivery'); ?>" class="dropdown-item"><i class="fas fa-truck"></i>
-                           Delivery Order
+                     </li>
+                     <li class="nav-item dropdown">
+                        <a <?= $this->uri->segment(2) == 'new'  || $this->uri->segment(2) == 'delivery' || $this->uri->segment(2) == 'complete' ? 'class="nav-link active"' : 'class="nav-link"' ?> data-toggle="dropdown" href="#">
+                           <i class="fas fa-truck-loading"></i> Transaction <i class="fas fa-angle-down"></i></a>
+                        <div class="dropdown-menu">
+                           <a href="<?= base_url('dashboard/new'); ?>" class="dropdown-item"><i class="fas fa-cart-plus"></i>
+                              Pickup Order
+                           </a>
+                           <a href="<?= base_url('dashboard/delivery'); ?>" class="dropdown-item"><i class="fas fa-truck"></i>
+                              Delivery Order
+                           </a>
+                           <a href="<?= base_url('dashboard/complete'); ?>" class="dropdown-item"><i class="fas fa-check-double"></i>
+                              Completed Order
+                           </a>
+                           <a href="<?= base_url('dashboard/retur'); ?>" class="dropdown-item"><i class="fas fa-undo-alt"></i>
+                              Retur Order
+                           </a>
+                        </div>
+                     </li>
+                     <li class="nav-item">
+                        <a href="<?= base_url('dashboard/blog'); ?>" <?= $this->uri->segment(2) == 'blog'   ? 'class="nav-link active"' : 'class="nav-link"' ?>>
+                           <i class="fas fa-blog"></i> Blog
                         </a>
-                        <a href="<?= base_url('dashboard/complete'); ?>" class="dropdown-item"><i class="fas fa-check-double"></i>
-                           Completed Order
-                        </a>
-                     </div>
-                  </li>
-                  <li class="nav-item">
-                     <a href="<?= base_url('dashboard/blog'); ?>" <?= $this->uri->segment(2) == 'blog'   ? 'class="nav-link active"' : 'class="nav-link"' ?>>
-                        <i class="fas fa-blog"></i> Blog
-                     </a>
-                  </li>
+                     </li>
+                  <?php endif ?>
                   <?php if ($this->session->userdata('level') == 'admin') : ?>
+                     <li class="nav-item">
+                        <a href="<?= base_url('dashboard/transaction'); ?>" <?= $this->uri->segment(2) == 'transaction'   ? 'class="nav-link active"' : 'class="nav-link"' ?>>
+                           <i class="fas fa-clipboard"></i> Transaction
+                        </a>
+                     </li>
                      <li class="nav-item">
                         <a href="<?= base_url('dashboard/user'); ?>" <?= $this->uri->segment(2) == 'user'   ? 'class="nav-link active"' : 'class="nav-link"' ?>>
                            <i class="fas fa-users"></i> Users

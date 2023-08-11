@@ -22,7 +22,7 @@
                <div class="card card-info card-outline">
                   <div class="card-header">
                      <h4 class="card-title">
-                        <a class="btn btn-success col-15 shadow-sm" data-toggle="modal" data-target="#modal_add">
+                        <a class="btn btn-info col-15 shadow-sm" data-toggle="modal" data-target="#modal_add">
                            <i class="fa fa-plus"></i>&nbsp; Add User
                         </a>
                      </h4>
@@ -46,8 +46,9 @@
                               <th>Name</th>
                               <th>Email</th>
                               <th>No Hp</th>
+                              <th>Address</th>
                               <th>Status</th>
-                              <th width="9%">Chat User</th>
+                              <th>Chat User</th>
                               <th width="9%"><i class="fas fa-cogs"></i></th>
                            </tr>
                         </thead>
@@ -57,6 +58,9 @@
                               <td class="align-middle"><?= ucwords($u->nama) ?></td>
                               <td class="align-middle"><?= $u->email ?></td>
                               <td class="align-middle"><?= $u->no_hp ?></td>
+                              <td class="align-middle text-center">
+                                 <?= ucwords($u->address) ?>
+                              </td>
                               <td class="align-middle text-center">
                                  <?php if ($u->level == 'penjual') : ?>
                                     <span class="badge badge-secondary">Penjual</span>
@@ -129,6 +133,16 @@
                         </div>
                      </div>
                      <input type="text" name="no_hp" class="form-control" placeholder="Input Hp .." required>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="input-group">
+                     <div class="input-group-prepend">
+                        <div class="input-group-text">
+                           <span><i class="fas fa-map-marked-alt"></i></span>
+                        </div>
+                     </div>
+                     <input type="text" name="address" class="form-control" placeholder="Input Address .." required>
                   </div>
                </div>
                <div class="form-group">
@@ -209,6 +223,16 @@
                            </div>
                         </div>
                         <input type="text" name="no_hp" class="form-control" value="<?= $u->no_hp ?>" required>
+                     </div>
+                  </div>
+                  <div class="form-group">
+                     <div class="input-group">
+                        <div class="input-group-prepend">
+                           <div class="input-group-text">
+                              <span><i class="fas fa-map-marked-alt"></i></span>
+                           </div>
+                        </div>
+                        <input type="text" name="address" class="form-control" value="<?= $u->address ?>" required>
                      </div>
                   </div>
                   <div class="form-group">

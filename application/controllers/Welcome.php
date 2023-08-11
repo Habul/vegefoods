@@ -236,8 +236,9 @@ class Welcome extends CI_Controller
     public function cart()
     {
         $data['header']  = $this->m_data->shop('id_detil', ['id_pengguna' => $this->session->userdata('id'), 'status!=' => '3'])->row();
-        $data['cart']  = $this->m_data->shop('id_detil', ['id_pengguna' => $this->session->userdata('id'), 'status!=' => '3'])->result();
-        $data['total'] = $this->m_data->shop('id_detil', ['id_pengguna' => $this->session->userdata('id'), 'status!=' => '3', 'id_produk!=' => '0'])->num_rows();
+        $data['cart']    = $this->m_data->shop('id_detil', ['id_pengguna' => $this->session->userdata('id'), 'status!=' => '3'])->result();
+        $data['total']   = $this->m_data->shop('id_detil', ['id_pengguna' => $this->session->userdata('id'), 'status!=' => '3', 'id_produk!=' => '0'])->num_rows();
+        $data['penjual'] = $this->m_data->edit_data(['id' => '2'], 'pengguna')->row();
         $this->load->view('frontend/v_header', $data);
         $this->load->view('frontend/v_cart', $data);
         $this->load->view('frontend/v_footer');
@@ -296,9 +297,18 @@ class Welcome extends CI_Controller
         redirect(base_url('cart'));
     }
 
-    public function retur($id)
+    public function retur()
     {
-        $this->m_data->update_data(['id' => $id], ['status' => '4'], 'h_transaksi');
+        $id     = $this->input->post('id');
+        $note   = $this->input->post('note');
+
+        $data =
+            [
+                'note'   => $note,
+                'status' => '5'
+            ];
+
+        $this->m_data->update_data(['id' => $id], $data, 'h_transaksi');
         redirect(base_url('cart'));
     }
 

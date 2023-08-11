@@ -47,11 +47,11 @@
                               <th>Produk</th>
                               <th>Qty</th>
                               <th>Price</th>
-                              <th>Status</th>
+                              <th>Note</th>
                               <th width="9%"><i class="fas fa-cogs"></i></th>
                            </tr>
                         </thead>
-                        <?php foreach ($new as $u) {    ?>
+                        <?php foreach ($retur as $u) {    ?>
                            <tr>
                               <td class="align-middle text-center"></td>
                               <td class="align-middle">
@@ -82,29 +82,13 @@
                                  <?= $sum->jumlah ?>
                               </td>
                               <td class="align-middle text-center"><?= number_format($sum2->harga, 0, ",", ".") ?></td>
-                              <td class="align-middle text-center">
-                                 <?php if ($u->status == 0) : ?>
-                                    <span class="badge badge-warning"> - </span>
-                                 <?php elseif ($u->status == 1) : ?>
-                                    <span class="badge badge-info">In Process</span>
-                                 <?php elseif ($u->status == 2) : ?>
-                                    <span class="badge badge-secondary">Is on delivery</span>
-                                 <?php elseif ($u->status == 3) : ?>
-                                    <span class="badge badge-success">Finished</span>
-                                 <?php else : ?>
-                                    <span class="badge badge-warning">Retur Order</span>
-                                 <?php endif ?>
+                              <td class="align-middle">
+                                 <?= $u->note ?>
                               </td>
                               <td class="align-middle text-center">
-                                 <?php if ($u->ongkir == 0) : ?>
-                                    <a class="btn btn-info" data-toggle="modal" data-target="#modal_ship<?= $u->id; ?>" title="shipping Cost">
-                                       <i class="fas fa-comment-dollar"></i>
-                                    </a>
-                                 <?php else : ?>
-                                    <a class="btn btn-warning" data-toggle="modal" data-target="#modal_pick<?= $u->id; ?>" title="Pickup">
-                                       <i class="fas fa-truck-loading"></i>
-                                    </a>
-                                 <?php endif ?>
+                                 <a class="btn btn-warning" data-toggle="modal" data-target="#modal_conf<?= $u->id; ?>" title="Confirm retur">
+                                    <i class="fas fa-people-carry"></i>
+                                 </a>
                               </td>
                            </tr>
                         <?php } ?>
@@ -117,22 +101,21 @@
    </section>
 </div>
 
-<!-- Bootstrap modal edit & delete -->
-<?php foreach ($new as $u) : ?>
-   <div class="modal fade" id="modal_pick<?= $u->id; ?>" tabindex="-1" data-backdrop="static">
+<?php foreach ($retur as $u) : ?>
+   <div class="modal fade" id="modal_conf<?= $u->id; ?>" tabindex="-1" data-backdrop="static">
       <div class="modal-dialog modal-dialog-centered">
          <div class="modal-content">
             <div class="modal-header">
-               <h4 class="col-12 modal-title text-center">Pickup Order
+               <h4 class="col-12 modal-title text-center">Confrim Retur
                   <button class="close" data-dismiss="modal" aria-label="Close">
                      <span aria-hidden="true">&times;</span>
                   </button>
                </h4>
             </div>
-            <form onsubmit="pickform.disabled = true; return true;" method="post" action="<?= base_url('dashboard/pickup') ?>">
+            <form onsubmit="pickform.disabled = true; return true;" method="post" action="<?= base_url('dashboard/confretur') ?>">
                <div class="modal-body">
                   <input type="hidden" name="id" value="<?= $u->id ?>">
-                  <span>Pickup ?</span>
+                  <span>Confrim retur ?</span>
                </div>
                <div class="modal-footer justify-content-between">
                   <button class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> No</button>
@@ -142,36 +125,4 @@
          </div>
       </div>
    </div>
-
-   <div class="modal fade" id="modal_ship<?= $u->id; ?>" tabindex="-1" data-backdrop="static">
-      <div class="modal-dialog modal-dialog-centered">
-         <div class="modal-content">
-            <div class="modal-header">
-               <h4 class="col-12 modal-title text-center">Distance
-                  <button class="close" data-dismiss="modal" aria-label="Close">
-                     <span aria-hidden="true">&times;</span>
-                  </button>
-               </h4>
-            </div>
-            <form onsubmit="shipform.disabled = true; return true;" method="post" action="<?= base_url('dashboard/ship') ?>">
-               <div class="modal-body">
-                  <input type="hidden" name="id" value="<?= $u->id ?>">
-                  <select name="distance" class="form-control">
-                     <option value="10000">
-                        > 10 Km - 10.000 </option>
-                     <option value="8000">
-                        < 10 Km - 8.000 </option>
-                  </select>
-               </div>
-               <div class="modal-footer justify-content-between">
-                  <button class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Cancel</button>
-                  <button class="btn btn-info" id="shipform"><i class="fa fa-check"></i> Save</button>
-               </div>
-            </form>
-         </div>
-      </div>
-   </div>
-
 <?php endforeach ?>
-
-<!--End Modals Add-->

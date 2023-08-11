@@ -77,29 +77,32 @@ class Dashboard extends CI_Controller
         $this->form_validation->set_rules('status', 'Status', 'required');
 
         if ($this->form_validation->run() != false) {
-            $nama = $this->input->post('nama');
-            $email = $this->input->post('email');
+            $nama     = $this->input->post('nama');
+            $email    = $this->input->post('email');
             $password = password_hash($this->input->post('password'), PASSWORD_DEFAULT);
-            $status = $this->input->post('status');
-            $id = $this->input->post('id');
-            $no_hp = $this->input->post('no_hp');
+            $status   = $this->input->post('status');
+            $id       = $this->input->post('id');
+            $no_hp    = $this->input->post('no_hp');
+            $address  = $this->input->post('address');
 
             if ($this->input->post('password') == "") {
                 $data =
                     [
-                        'nama' => $nama,
-                        'email' => $email,
-                        'level' => $status,
-                        'no_hp' => $no_hp
+                        'nama'    => $nama,
+                        'email'   => $email,
+                        'level'   => $status,
+                        'no_hp'   => $no_hp,
+                        'address' => $address
                     ];
             } else {
                 $data =
                     [
-                        'nama' => $nama,
-                        'email' => $email,
+                        'nama'     => $nama,
+                        'email'    => $email,
                         'password' => $password,
-                        'no_hp' => $no_hp,
-                        'level' => $status,
+                        'no_hp'    => $no_hp,
+                        'address'  => $address,
+                        'level'    => $status,
                     ];
             }
 
@@ -124,8 +127,8 @@ class Dashboard extends CI_Controller
 
     public function new()
     {
-        $data['title']  = 'New Orders';
-        $data['new']    = $this->m_data->get_index_where('addtime', ['status' => 1, 'status' => 4], 'h_transaksi')->result();
+        $data['title']  = 'Pickup Orders';
+        $data['new']    = $this->m_data->get_index_orwhere('addtime', ['status' => '1'], ['status' => '4'], 'h_transaksi')->result();
         $data['detail'] = $this->m_data->get_data('d_transaksi')->result();
         $data['produk'] = $this->m_data->get_data('produk')->result();
         $data['pengguna'] = $this->m_data->get_data('pengguna')->result();
@@ -141,6 +144,27 @@ class Dashboard extends CI_Controller
         $this->m_data->update_data(['id' => $id], ['status' => 2], 'h_transaksi');
         $this->session->set_flashdata('berhasil', 'Successfully update to delivery !');
         redirect(base_url('dashboard/new'));
+    }
+
+    public function retur()
+    {
+        $data['title'] = 'Retur Orders';
+        $data['retur'] = $this->m_data->get_index_where('addtime', ['status' => 5], 'h_transaksi')->result();
+        $data['detail'] = $this->m_data->get_data('d_transaksi')->result();
+        $data['pengguna'] = $this->m_data->get_data('pengguna')->result();
+        $data['produk'] = $this->m_data->get_data('produk')->result();
+        $this->load->view('dashboard/v_header', $data);
+        $this->load->view('dashboard/v_retur', $data);
+        $this->load->view('dashboard/v_footer');
+        $this->load->view('dashboard/v_js');
+    }
+
+    public function confretur()
+    {
+        $id = $this->input->post('id');
+        $this->m_data->update_data(['id' => $id], ['status' => 4], 'h_transaksi');
+        $this->session->set_flashdata('berhasil', 'Successfully update to Pickup retur !');
+        redirect(base_url('dashboard/retur'));
     }
 
     public function ship()
@@ -424,5 +448,18 @@ class Dashboard extends CI_Controller
         unlink(FCPATH . './assets/imgbeautyhampers/blog/' . $image);
         $this->session->set_flashdata('berhasil', 'Successfully delete ' . ucwords($judul) . ' !');
         redirect(base_url('dashboard/blog'));
+    }
+
+    public function transaction()
+    {
+        $data['title']    = 'History Transaction';
+        $data['history']   = $this->m_data->get_index_desc('h_transaksi', 'addtime')->result();
+        $data['detail']   = $this->m_data->get_data('d_transaksi')->result();
+        $data['pengguna'] = $this->m_data->get_data('pengguna')->result();
+        $data['produk']   = $this->m_data->get_data('produk')->result();
+        $this->load->view('dashboard/v_header', $data);
+        $this->load->view('dashboard/v_transaksi', $data);
+        $this->load->view('dashboard/v_footer');
+        $this->load->view('dashboard/v_js');
     }
 }
