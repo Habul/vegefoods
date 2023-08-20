@@ -37,9 +37,19 @@
               <?php endforeach ?>
             </td>
             <td>
-              <?php $sum = $this->db->select_sum('jumlah')->where(['id_tran' => $h->id])->get('d_transaksi')->row();
-              $sum2 = $this->db->select_sum('harga')->where(['id_tran' => $h->id])->get('d_transaksi')->row() ?>
-              <?= $sum->jumlah ?>
+              <?php
+              // $sum  = $this->db->select_sum('jumlah')->where(['id_tran' => $h->id])->get('d_transaksi')->row();
+              $sum2 = $this->db->select_sum('harga')->where(['id_tran' => $h->id])->get('d_transaksi')->row();
+              ?>
+              <?php foreach ($detail as $d) : ?>
+                <?php if ($d->id_tran == $h->id) : ?>
+                  <?php foreach ($produk as $p) : ?>
+                    <?php if ($p->id == $d->id_produk) : ?>
+                      <li><?= '1 ' . ucwords($p->satuan) ?></li>
+                    <?php endif ?>
+                  <?php endforeach ?>
+                <?php endif ?>
+              <?php endforeach ?>
             </td>
             <td>
               <?= number_format($sum2->harga, 0, ",", ".") ?>

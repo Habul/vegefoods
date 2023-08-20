@@ -46,7 +46,7 @@
                 <?= 'Shipping Cost' ?>
               <?php endif ?>
             </td>
-            <td><?= $c->jumlah ?></td>
+            <td><?= $c->jumlah . ' ' . ucwords($c->satuan) ?></td>
             <td><?= $c->harga ?></td>
             <td>
               <?php if ($c->status == 0) : ?>
