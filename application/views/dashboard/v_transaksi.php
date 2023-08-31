@@ -74,12 +74,19 @@
                                  <?php endforeach ?>
                               </td>
                               <td class="align-middle text-center">
-                                 <?php $sum = $this->db->select_sum('jumlah')->where(['id_tran' => $u->id])->get('d_transaksi')->row();
-                                 $sum2 = $this->db->select_sum('harga')->where(['id_tran' => $u->id, 'id_produk!=' => '0'])->get('d_transaksi')->row() ?>
-                                 <?= $sum->jumlah ?>
+                                 <?php $sum2 = $this->db->select_sum('harga')->where(['id_tran' => $u->id, 'id_produk!=' => '0'])->get('d_transaksi')->row() ?>
+                                 <?php foreach ($detail as $d) : ?>
+                                    <?php if ($d->id_tran == $u->id) : ?>
+                                       <?php foreach ($produk as $p) : ?>
+                                          <?php if ($p->id == $d->id_produk) : ?>
+                                             <li><?= $d->jumlah . ' ' . ucwords($p->satuan) ?></li>
+                                          <?php endif ?>
+                                       <?php endforeach ?>
+                                    <?php endif ?>
+                                 <?php endforeach ?>
                               </td>
                               <td class="align-middle text-center"><?= number_format($sum2->harga, 0, ",", ".") ?></td>
-                              <td class="text-center">
+                              <td class="align-middle text-center">
                                  <?php if ($u->status == 0) : ?>
                                     <span class="badge badge-warning"> - </span>
                                  <?php elseif ($u->status == 1) : ?>
