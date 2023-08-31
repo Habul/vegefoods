@@ -16,8 +16,12 @@
         <label for="floatingInput">Email address</label>
       </div>
       <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="floatinghp" placeholder="name@example.com" name="no_hp" required>
+        <input type="text" class="form-control" id="floatinghp" placeholder="08xxxxx" name="no_hp" required>
         <label for="floatinghp">No HP</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="floatingaddres" placeholder="Address" name="address" required>
+        <label for="floatingaddres">Address</label>
       </div>
       <div class="form-floating mb-3">
         <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password" required>

@@ -45,7 +45,7 @@
                 <?php if ($d->id_tran == $h->id) : ?>
                   <?php foreach ($produk as $p) : ?>
                     <?php if ($p->id == $d->id_produk) : ?>
-                      <li><?= '1 ' . ucwords($p->satuan) ?></li>
+                      <li><?= $d->jumlah . ' ' . ucwords($p->satuan) ?></li>
                     <?php endif ?>
                   <?php endforeach ?>
                 <?php endif ?>

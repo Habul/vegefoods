@@ -122,7 +122,8 @@ class Welcome extends CI_Controller
                     [
                         'id'           => $id_tran + 1,
                         'id_pengguna'  => $id_pengguna,
-                        'addtime'      => date('Y-m-d H:m:s')
+                        'addtime'      => date('Y-m-d H:m:s'),
+                        'alamat'       => $this->session->userdata('addr')
                     ];
 
                 $data_d =
@@ -130,7 +131,7 @@ class Welcome extends CI_Controller
                         'id_tran' => $id_tran + 1,
                         'id_produk'  => $id_produk,
                         'jumlah'  => $jumlah,
-                        'harga'   => $harga
+                        'harga'   => $harga * $jumlah
                     ];
 
                 $this->m_data->insert_data($data_h, 'h_transaksi');
@@ -161,7 +162,7 @@ class Welcome extends CI_Controller
                             'id_tran'   => $id_tran,
                             'id_produk' => $id_produk,
                             'jumlah'    => $jumlah,
-                            'harga'     => $harga
+                            'harga'     => $harga * $jumlah
                         ];
 
                     $this->m_data->insert_data($data_d, 'd_transaksi');
@@ -244,27 +245,27 @@ class Welcome extends CI_Controller
         $this->load->view('frontend/v_footer');
     }
 
-    public function add_distance()
-    {
-        $this->form_validation->set_rules('alamat', 'Alamat', 'required');
+    // public function add_distance()
+    // {
+    //     $this->form_validation->set_rules('alamat', 'Alamat', 'required');
 
-        if ($this->form_validation->run() != false) {
-            $id = $this->input->post('id');
-            $alamat = $this->input->post('alamat');
+    //     if ($this->form_validation->run() != false) {
+    //         $id = $this->input->post('id');
+    //         $alamat = $this->input->post('alamat');
 
-            $data =
-                [
-                    'alamat' => $alamat,
-                ];
+    //         $data =
+    //             [
+    //                 'alamat' => $alamat,
+    //             ];
 
-            $this->m_data->update_data(['id' => $id], $data, 'h_transaksi');
-            $this->session->set_flashdata('berhasil', 'Successfully added address !');
-            redirect(base_url('cart'));
-        } else {
-            $this->session->set_flashdata('gagal', 'Failed to add address !');
-            redirect(base_url('cart'));
-        }
-    }
+    //         $this->m_data->update_data(['id' => $id], $data, 'h_transaksi');
+    //         $this->session->set_flashdata('berhasil', 'Successfully added address !');
+    //         redirect(base_url('cart'));
+    //     } else {
+    //         $this->session->set_flashdata('gagal', 'Failed to add address !');
+    //         redirect(base_url('cart'));
+    //     }
+    // }
 
     public function history()
     {

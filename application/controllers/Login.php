@@ -34,6 +34,7 @@ class Login extends CI_Controller
                 $this->session->set_userdata('nama', $hasil->nama);
                 $this->session->set_userdata('email', $hasil->email);
                 $this->session->set_userdata('hp', $hasil->no_hp);
+                $this->session->set_userdata('addr', $hasil->address);
                 $this->session->set_userdata('level', $hasil->level);
                 $this->session->set_userdata('status', 'hm_log');
                 if ($hasil->level == 'penjual' || $hasil->level == 'admin') {
@@ -62,15 +63,17 @@ class Login extends CI_Controller
             $nama = $this->input->post('name');
             $email = $this->input->post('email');
             $no_hp = $this->input->post('no_hp');
+            $address = $this->input->post('address');
             $password = password_hash($this->input->post('password'), PASSWORD_DEFAULT);
 
             $data =
                 [
-                    'nama' => $nama,
-                    'email' => $email,
-                    'no_hp' => $no_hp,
+                    'nama'     => $nama,
+                    'email'    => $email,
+                    'no_hp'    => $no_hp,
+                    'address'  => $address,
                     'password' => $password,
-                    'level' => 'pembeli',
+                    'level'    => 'pembeli',
                 ];
 
             $this->m_data->insert_data($data, 'pengguna');
@@ -81,11 +84,12 @@ class Login extends CI_Controller
             $this->session->set_userdata('nama', $cek->nama);
             $this->session->set_userdata('email', $cek->email);
             $this->session->set_userdata('hp', $cek->no_hp);
+            $this->session->set_userdata('addr', $cek->address);
             $this->session->set_userdata('level', $cek->level);
             $this->session->set_userdata('status', 'hm_log');
             redirect(base_url('/'));
         } else {
-            redirect(base_url() . 'login/register?alert=not_registered');
+            redirect(base_url() . 'login/welcome?alert=not_registered');
         }
     }
 

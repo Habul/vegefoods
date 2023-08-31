@@ -14,7 +14,7 @@
     </div>
     <div class="card col-6">
       <div class="card-body">
-        <span class="fw-semibold">Address : <?= $header->alamat ?></span>
+        <span class="fw-semibold">Address : <?= ucwords($header->alamat) ?></span>
       </div>
     </div>
   </div>
@@ -99,14 +99,12 @@
       <?php if ($total != 0) : ?>
         <div class="d-flex justify-content-end">
           <?php if ($header->status == 0 && $header->ongkir == 0) : ?>
-            <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#address"><i class="fas fa-map"></i> Add address</button>
-            <?php if ($header->alamat != '') : ?>
-              <?= anchor(
-                site_url('welcome/checkout/' . $c->id),
-                '<i class="fas fa-check"></i> Checkout',
-                'title="Checkout" class="btn btn-info mx-3" onclick="javasciprt: return confirm(\'Are You Sure ?\')"'
-              ); ?>
-            <?php endif ?>
+            <!-- <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#address"><i class="fas fa-map"></i> Add address</button> -->
+            <?= anchor(
+              site_url('welcome/checkout/' . $c->id),
+              '<i class="fas fa-check"></i> Checkout',
+              'title="Checkout" class="btn btn-info mx-3" onclick="javasciprt: return confirm(\'Are You Sure ?\')"'
+            ); ?>
           <?php elseif ($header->status == 2) : ?>
             <?= anchor(
               site_url('welcome/confrim/' . $c->id),
@@ -124,7 +122,7 @@
 
 <!-- Modal -->
 <?php foreach ($cart as $c) : ?>
-  <div class="modal fade" id="address" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <!-- <div class="modal fade" id="address" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
@@ -144,7 +142,7 @@
         <?= form_close(); ?>
       </div>
     </div>
-  </div>
+  </div> -->
 
   <div class="modal fade" id="retur" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">

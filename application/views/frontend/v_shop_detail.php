@@ -7,9 +7,13 @@
         <h2>Rp <?= number_format($p->harga, 0, ",", ".") ?></h2>
         <?= form_open(base_url('welcome/add_cart')); ?>
         <input type="hidden" name="id_produk" value="<?= $p->id ?>">
-        <input type="hidden" name="jumlah" value="<?= 1 ?>">
         <input type="hidden" name="harga" value="<?= $p->harga ?>">
         <input type="hidden" name="id_tran" value="<?= $id_tran->id ?>">
+        <select name="jumlah">
+          <?php for ($x = 1; $x <= 10; $x++) { ?>
+            <option value="<?= $x ?>"> <?= $x ?> <?= ucwords($p->satuan) ?></option>
+          <?php } ?>
+        </select>
         <button class="normal" type="submit"><i class="fas fa-cart-plus"></i> Add to cart</button>
         <?= form_close(); ?>
         <?php if ($this->session->flashdata('gagal')) { ?>
