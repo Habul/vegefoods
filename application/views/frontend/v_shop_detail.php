@@ -5,12 +5,13 @@
       <div class="single-pro-details">
         <h4><?= ucwords($p->nama_produk) ?></h4>
         <h2>Rp <?= number_format($p->harga, 0, ",", ".") ?></h2>
+        <small>Sisa Stock <?= $p->stok . ucwords($p->satuan) ?></small>
         <?= form_open(base_url('welcome/add_cart')); ?>
         <input type="hidden" name="id_produk" value="<?= $p->id ?>">
         <input type="hidden" name="harga" value="<?= $p->harga ?>">
         <input type="hidden" name="id_tran" value="<?= $id_tran->id ?>">
         <select name="jumlah">
-          <?php for ($x = 1; $x <= 10; $x++) { ?>
+          <?php for ($x = 1; $x <= $p->stok; $x++) { ?>
             <option value="<?= $x ?>"> <?= $x ?> <?= ucwords($p->satuan) ?></option>
           <?php } ?>
         </select>

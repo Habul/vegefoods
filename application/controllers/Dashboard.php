@@ -224,6 +224,7 @@ class Dashboard extends CI_Controller
     public function add_item()
     {
         $this->form_validation->set_rules('name', 'Name Product', 'required');
+        $this->form_validation->set_rules('stok', 'Stock', 'required');
         $this->form_validation->set_rules('harga', 'Harga', 'required');
 
         if ($this->form_validation->run() != false) {
@@ -231,6 +232,7 @@ class Dashboard extends CI_Controller
             $satuan  = $this->input->post('satuan');
             $harga   = $this->input->post('harga');
             $detail  = $this->input->post('detail');
+            $stok    = $this->input->post('stok');
 
             if (!empty($_FILES['image']['name'])) {
                 $config['upload_path']   = './assets/imgbeautyhampers/products/';
@@ -251,6 +253,7 @@ class Dashboard extends CI_Controller
                     [
                         'nama_produk' => $nama,
                         'satuan' => $satuan,
+                        'stok'  => $stok,
                         'harga' => $harga,
                         'detail' => $detail,
                         'image' => $file
@@ -259,6 +262,7 @@ class Dashboard extends CI_Controller
                 $data =
                     [
                         'nama_produk' => $nama,
+                        'stok'  => $stok,
                         'satuan' => $satuan,
                         'harga' => $harga,
                         'detail' => $detail
@@ -282,6 +286,7 @@ class Dashboard extends CI_Controller
         if ($this->form_validation->run() != false) {
             $nama   = $this->input->post('nama');
             $satuan = $this->input->post('satuan');
+            $stok   = $this->input->post('stok');
             $harga  = $this->input->post('harga');
             $detail = $this->input->post('detail');
             $id     = $this->input->post('id');
@@ -290,6 +295,7 @@ class Dashboard extends CI_Controller
                 [
                     'nama_produk' => $nama,
                     'satuan' => $satuan,
+                    'stok'  => $stok,
                     'harga' => $harga,
                     'detail' => $detail
                 ];

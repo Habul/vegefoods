@@ -107,9 +107,10 @@ class Welcome extends CI_Controller
     {
         if ($this->session->userdata('status') != '') {
 
-            $cek = $this->db->where(['id_pengguna' => $this->session->userdata('id'), 'status' => '0'])->get('h_transaksi')->num_rows();
+            $cek  = $this->db->where(['id_pengguna' => $this->session->userdata('id'), 'status' => '0'])->get('h_transaksi')->num_rows();
             $cek2 = $this->db->where(['id_pengguna' => $this->session->userdata('id'), 'status' => '1'])->get('h_transaksi')->num_rows();
             $cek3 = $this->db->where(['id_pengguna' => $this->session->userdata('id'), 'status' => '2'])->get('h_transaksi')->num_rows();
+
 
             if ($cek == 0 && $cek2 == 0 && $cek3 == 0) {
                 $id_produk   = $this->input->post('id_produk');
@@ -117,6 +118,7 @@ class Welcome extends CI_Controller
                 $harga       = $this->input->post('harga');
                 $id_pengguna = $this->session->userdata('id');
                 $id_tran     = $this->input->post('id_tran');
+                $cekstok     = $this->m_data->edit_data(['id' => $id_produk], 'produk')->row();
 
                 $data_h =
                     [
@@ -134,8 +136,14 @@ class Welcome extends CI_Controller
                         'harga'   => $harga * $jumlah
                     ];
 
+                $data_s =
+                    [
+                        'stok'  => $cekstok->stok - $jumlah
+                    ];
+
                 $this->m_data->insert_data($data_h, 'h_transaksi');
                 $this->m_data->insert_data($data_d, 'd_transaksi');
+                $this->m_data->update_data(['id' => $id_produk], $data_s, 'produk');
                 redirect(base_url('shop'));
             } else {
 
@@ -156,6 +164,7 @@ class Welcome extends CI_Controller
                     $jumlah      = $this->input->post('jumlah');
                     $harga       = $this->input->post('harga');
                     $id_tran     = $this->input->post('id_tran');
+                    $cekstok     = $this->m_data->edit_data(['id' => $id_produk], 'produk')->row();
 
                     $data_d =
                         [
@@ -165,7 +174,13 @@ class Welcome extends CI_Controller
                             'harga'     => $harga * $jumlah
                         ];
 
+                    $data_s =
+                        [
+                            'stok'  => $cekstok->stok - $jumlah
+                        ];
+
                     $this->m_data->insert_data($data_d, 'd_transaksi');
+                    $this->m_data->update_data(['id' => $id_produk], $data_s, 'produk');
                     redirect(base_url('shop'));
                 }
             }
@@ -282,6 +297,11 @@ class Welcome extends CI_Controller
 
     public function delete($id)
     {
+        $cekstok = $this->m_data->shop('id_detil', ['id_pengguna' => $this->session->userdata('id'), 'status!=' => '3'])->row();
+
+        $update = $cekstok->jumlah + $cekstok->stok;
+
+        $this->m_data->update_data(['id' => $cekstok->id_produk], ['stok' => $update], 'produk');
         $this->m_data->delete_data(['id' => $id], 'd_transaksi');
         redirect(base_url('cart'));
     }

@@ -45,6 +45,7 @@
                               <th width="5%">No</th>
                               <th>Name</th>
                               <th>Satuan</th>
+                              <th>Stok</th>
                               <th>Harga</th>
                               <th width="5%">Image</th>
                               <th width=" 9%"><i class="fas fa-cogs"></i></th>
@@ -55,6 +56,7 @@
                               <td class="align-middle text-center"></td>
                               <td class="align-middle"><?= ucwords($h->nama_produk) ?></td>
                               <td class="align-middle text-center"><?= strtoupper($h->satuan) ?></td>
+                              <td class="align-middle text-center"><?= $h->stok ?></td>
                               <td class="align-middle text-center"><?= number_format($h->harga, 0, ",", ".") ?></td>
                               <td class="align-middle text-center"><img src="<?= base_url('assets/imgbeautyhampers/products/' . $h->image) ?>" width="100%" class="img-responsive" /></td>
                               <td class="align-middle text-center">
@@ -110,6 +112,16 @@
                         <option value="kg">KG</option>
                         <option value="ikat">Ikat</option>
                      </select>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="input-group">
+                     <div class="input-group-prepend">
+                        <div class="input-group-text">
+                           <span><i class="fas fa-box"></i>&nbsp;&nbsp;</span>
+                        </div>
+                     </div>
+                     <input type="number" name="stok" class="form-control" placeholder="Input stok .." required>
                   </div>
                </div>
                <div class="form-group">
@@ -190,6 +202,16 @@
                                        echo "selected='selected'";
                                     } ?> value="ikat">IKAT</option>
                         </select>
+                     </div>
+                  </div>
+                  <div class="form-group">
+                     <div class="input-group">
+                        <div class="input-group-prepend">
+                           <div class="input-group-text">
+                              <span><i class="fas fa-box"></i>&nbsp;&nbsp;</span>
+                           </div>
+                        </div>
+                        <input type="number" name="stok" class="form-control" value="<?= $u->stok ?>" required>
                      </div>
                   </div>
                   <div class="form-group">
