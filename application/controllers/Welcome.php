@@ -160,7 +160,7 @@ class Welcome extends CI_Controller
                     $this->load->view('frontend/v_shop_detail', $data);
                     $this->load->view('frontend/v_footer');
                 } else {
-                    $id_produk     = $this->input->post('id_produk');
+                    $id_produk   = $this->input->post('id_produk');
                     $jumlah      = $this->input->post('jumlah');
                     $harga       = $this->input->post('harga');
                     $id_tran     = $this->input->post('id_tran');
@@ -260,27 +260,29 @@ class Welcome extends CI_Controller
         $this->load->view('frontend/v_footer');
     }
 
-    // public function add_distance()
-    // {
-    //     $this->form_validation->set_rules('alamat', 'Alamat', 'required');
+    public function add_distance()
+    {
+        $this->form_validation->set_rules('alamat', 'Alamat', 'required');
 
-    //     if ($this->form_validation->run() != false) {
-    //         $id = $this->input->post('id');
-    //         $alamat = $this->input->post('alamat');
+        if ($this->form_validation->run() != false) {
+            $id     = $this->input->post('id');
+            $alamat = $this->input->post('alamat');
+            $user   = $this->session->userdata('id');
 
-    //         $data =
-    //             [
-    //                 'alamat' => $alamat,
-    //             ];
+            $data =
+                [
+                    'alamat' => $alamat,
+                ];
 
-    //         $this->m_data->update_data(['id' => $id], $data, 'h_transaksi');
-    //         $this->session->set_flashdata('berhasil', 'Successfully added address !');
-    //         redirect(base_url('cart'));
-    //     } else {
-    //         $this->session->set_flashdata('gagal', 'Failed to add address !');
-    //         redirect(base_url('cart'));
-    //     }
-    // }
+            $this->m_data->update_data(['id' => $id], $data, 'h_transaksi');
+            $this->m_data->update_data(['id' => $user], ['address' => $alamat], 'pengguna');
+            $this->session->set_flashdata('berhasil', 'Successfully added address !');
+            redirect(base_url('cart'));
+        } else {
+            $this->session->set_flashdata('gagal', 'Failed to add address !');
+            redirect(base_url('cart'));
+        }
+    }
 
     public function history()
     {

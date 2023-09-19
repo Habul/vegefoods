@@ -99,7 +99,7 @@
       <?php if ($total != 0) : ?>
         <div class="d-flex justify-content-end">
           <?php if ($header->status == 0 && $header->ongkir == 0) : ?>
-            <!-- <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#address"><i class="fas fa-map"></i> Add address</button> -->
+            <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#address"><i class="fas fa-map"></i> Edit address</button>
             <?= anchor(
               site_url('welcome/checkout/' . $c->id),
               '<i class="fas fa-check"></i> Checkout',
@@ -122,7 +122,7 @@
 
 <!-- Modal -->
 <?php foreach ($cart as $c) : ?>
-  <!-- <div class="modal fade" id="address" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="address" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
@@ -142,7 +142,7 @@
         <?= form_close(); ?>
       </div>
     </div>
-  </div> -->
+  </div>
 
   <div class="modal fade" id="retur" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">

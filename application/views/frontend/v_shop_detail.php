@@ -10,12 +10,14 @@
         <input type="hidden" name="id_produk" value="<?= $p->id ?>">
         <input type="hidden" name="harga" value="<?= $p->harga ?>">
         <input type="hidden" name="id_tran" value="<?= $id_tran->id ?>">
-        <select name="jumlah">
-          <?php for ($x = 1; $x <= $p->stok; $x++) { ?>
-            <option value="<?= $x ?>"> <?= $x ?> <?= ucwords($p->satuan) ?></option>
-          <?php } ?>
-        </select>
-        <button class="normal" type="submit"><i class="fas fa-cart-plus"></i> Add to cart</button>
+        <?php if ($p->stok != 0) : ?>
+          <select name="jumlah">
+            <?php for ($x = 1; $x <= $p->stok; $x++) { ?>
+              <option value="<?= $x ?>"> <?= $x ?> <?= ucwords($p->satuan) ?></option>
+            <?php } ?>
+          </select>
+          <button class="normal" type="submit"><i class="fas fa-cart-plus"></i> Add to cart</button>
+        <?php endif ?>
         <?= form_close(); ?>
         <?php if ($this->session->flashdata('gagal')) { ?>
           <div class="alert alert-warning mt-3" role="alert">
