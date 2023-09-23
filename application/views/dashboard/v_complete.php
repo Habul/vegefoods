@@ -37,11 +37,11 @@
                      </div>
                   </div>
                   <div class="card-body">
-                     <table id="index2" class="table table-bordered table-striped table-sm">
+                     <table id="index3" class="table table-bordered table-striped table-sm">
                         <thead class="thead-light text-center">
                            <tr>
                               <th width="5%">No</th>
-                              <th>Name</th>
+                              <th>Pembeli</th>
                               <th>Trans Id</th>
                               <th>Address</th>
                               <th>Produk</th>

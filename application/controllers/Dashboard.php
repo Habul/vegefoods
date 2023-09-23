@@ -141,7 +141,7 @@ class Dashboard extends CI_Controller
     public function pickup()
     {
         $id = $this->input->post('id');
-        $this->m_data->update_data(['id' => $id], ['status' => 2], 'h_transaksi');
+        $this->m_data->update_data(['id' => $id], ['status' => 2, 'id_penjual' => $this->session->userdata('id')], 'h_transaksi');
         $this->session->set_flashdata('berhasil', 'Successfully update to delivery !');
         redirect(base_url('dashboard/new'));
     }
@@ -223,7 +223,7 @@ class Dashboard extends CI_Controller
 
     public function add_item()
     {
-        $this->form_validation->set_rules('name', 'Name Product', 'required');
+        $this->form_validation->set_rules('nama', 'Name Product', 'required');
         $this->form_validation->set_rules('stok', 'Stock', 'required');
         $this->form_validation->set_rules('harga', 'Harga', 'required');
 
@@ -465,6 +465,19 @@ class Dashboard extends CI_Controller
         $data['produk']   = $this->m_data->get_data('produk')->result();
         $this->load->view('dashboard/v_header', $data);
         $this->load->view('dashboard/v_transaksi', $data);
+        $this->load->view('dashboard/v_footer');
+        $this->load->view('dashboard/v_js');
+    }
+
+    public function list_retur()
+    {
+        $data['title']    = 'List Retur';
+        $data['retur']  = $this->m_data->get_index_desc('r_transaksi', 'addtime')->result();
+        $data['detail']   = $this->m_data->get_data('d_transaksi')->result();
+        $data['pengguna'] = $this->m_data->get_data('pengguna')->result();
+        $data['produk']   = $this->m_data->get_data('produk')->result();
+        $this->load->view('dashboard/v_header', $data);
+        $this->load->view('dashboard/v_listretur', $data);
         $this->load->view('dashboard/v_footer');
         $this->load->view('dashboard/v_js');
     }

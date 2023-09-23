@@ -99,7 +99,7 @@
       <?php if ($total != 0) : ?>
         <div class="d-flex justify-content-end">
           <?php if ($header->status == 0 && $header->ongkir == 0) : ?>
-            <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#address"><i class="fas fa-map"></i> Edit address</button>
+            <!-- <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#address"><i class="fas fa-map"></i> Edit address</button> -->
             <?= anchor(
               site_url('welcome/checkout/' . $c->id),
               '<i class="fas fa-check"></i> Checkout',
@@ -122,7 +122,7 @@
 
 <!-- Modal -->
 <?php foreach ($cart as $c) : ?>
-  <div class="modal fade" id="address" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <!-- <div class="modal fade" id="address" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
@@ -142,7 +142,7 @@
         <?= form_close(); ?>
       </div>
     </div>
-  </div>
+  </div> -->
 
   <div class="modal fade" id="retur" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
@@ -155,8 +155,12 @@
         <div class="modal-body">
           <div class="form-group mb-2">
             <input type="hidden" name="id" value="<?= $c->id ?>">
+            <input type="hidden" name="id_penjual" value="<?= $c->id_penjual ?>">
+            <input type="hidden" name="id_pengguna" value="<?= $c->id_pengguna ?>">
             <textarea name="note" class="form-control" rows="2"><?= $c->note ?></textarea>
-            <small>Note : If retur please send to alamat this <?= ucwords($penjual->address) ?></small>
+            <small>Note : If retur please send to alamat this <?= ucwords($penjual->address) ?> and please contact
+              <a href="https://wa.me/62<?= substr($settings->phone, 1) ?>" target="_blank" title="Chat Whatsapp"><i class="fab fa-whatsapp"></i></a> for confirmation
+            </small>
           </div>
         </div>
         <div class="modal-footer justify-content-center">

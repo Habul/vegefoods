@@ -40,6 +40,61 @@
             title: 'Report Complete Orders',
             footer: true,
             exportOptions: {
+               columns: [1, 2, 3, 4, 5, 6, 7],
+               orthogonal: 'export',
+            },
+         },
+         {
+            extend: 'excelHtml5',
+            filename: 'Data',
+            title: 'Report Complete Orders',
+            footer: true,
+            exportOptions: {
+               columns: [1, 2, 3, 4, 5, 6, 7],
+               orthogonal: 'export'
+            },
+         },
+         {
+            extend: 'pdfHtml5',
+            filename: 'Data',
+            title: 'Report Complete Orders',
+            footer: true,
+            exportOptions: {
+               columns: [1, 2, 3, 4, 5, 6, 7],
+               orthogonal: 'export',
+               modifier: {
+                  orientation: 'landscape'
+               },
+            },
+         }, 'colvis'
+      ],
+   });
+
+   x.on('order.dt search.dt', function() {
+      x.column(0, {
+         search: 'applied',
+         order: 'applied'
+      }).nodes().each(function(cell, j) {
+         cell.innerHTML = j + 1;
+      }).buttons().container().appendTo('#index2_wrapper .col-md-6:eq(0)');
+   }).draw();
+
+   var z = $('#index3').DataTable({
+      "responsive": true,
+      "lengthChange": false,
+      "autoWidth": false,
+      "columnDefs": [{
+         "searchable": false,
+         "orderable": false,
+         "targets": 0
+      }],
+      "order": [],
+      "buttons": [{
+            extend: 'copyHtml5',
+            filename: 'Data',
+            title: 'Report Complete Orders',
+            footer: true,
+            exportOptions: {
                columns: [1, 2, 3, 4, 5, 6],
                orthogonal: 'export',
             },
@@ -70,13 +125,13 @@
       ],
    });
 
-   x.on('order.dt search.dt', function() {
-      x.column(0, {
+   z.on('order.dt search.dt', function() {
+      z.column(0, {
          search: 'applied',
          order: 'applied'
       }).nodes().each(function(cell, j) {
          cell.innerHTML = j + 1;
-      }).buttons().container().appendTo('#index2_wrapper .col-md-6:eq(0)');
+      }).buttons().container().appendTo('#index3_wrapper .col-md-6:eq(0)');
    }).draw();
 
    <?php if ($this->session->flashdata('berhasil')) { ?>

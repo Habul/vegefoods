@@ -41,7 +41,8 @@
                         <thead class="thead-light text-center">
                            <tr>
                               <th width="5%">No</th>
-                              <th>Name</th>
+                              <th>Pembeli</th>
+                              <th>Penjual</th>
                               <th>Trans Id</th>
                               <th>Produk</th>
                               <th>Qty</th>
@@ -55,6 +56,13 @@
                               <td class="align-middle">
                                  <?php foreach ($pengguna as $p) : ?>
                                     <?php if ($u->id_pengguna == $p->id) : ?>
+                                       <?= ucwords($p->nama) ?>
+                                    <?php endif ?>
+                                 <?php endforeach ?>
+                              </td>
+                              <td class="align-middle">
+                                 <?php foreach ($pengguna as $p) : ?>
+                                    <?php if ($u->id_penjual == $p->id) : ?>
                                        <?= ucwords($p->nama) ?>
                                     <?php endif ?>
                                  <?php endforeach ?>

@@ -76,6 +76,11 @@
                         </a>
                      </li>
                      <li class="nav-item">
+                        <a href="<?= base_url('dashboard/list_retur'); ?>" <?= $this->uri->segment(2) == 'list_retur'   ? 'class="nav-link active"' : 'class="nav-link"' ?>>
+                           <i class="fas fa-undo-alt"></i> List Retur
+                        </a>
+                     </li>
+                     <li class="nav-item">
                         <a href="<?= base_url('dashboard/user'); ?>" <?= $this->uri->segment(2) == 'user'   ? 'class="nav-link active"' : 'class="nav-link"' ?>>
                            <i class="fas fa-users"></i> Users
                         </a>

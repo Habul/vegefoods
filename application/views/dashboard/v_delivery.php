@@ -41,7 +41,7 @@
                         <thead class="thead-light text-center">
                            <tr>
                               <th width="5%">No</th>
-                              <th>Name</th>
+                              <th>Pembeli</th>
                               <th>Trans Id</th>
                               <th>Address</th>
                               <th>Produk</th>

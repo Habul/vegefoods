@@ -36,6 +36,7 @@
           <?php endif ?>
         </li>
         <li><a class="<?= $this->uri->segment(1) == 'history' ? 'active' : '' ?>" href="<?= base_url('history') ?>" title="History Transaksi"><i class="fas fa-check-double"></i></a></li>
+        <li><a class="<?= $this->uri->segment(1) == 'address' ? 'active' : '' ?>" href="<?= base_url('address') ?>" title="Set Address"><i class="fas fa-map-marked-alt"></i></a></li>
         <li><a href="<?= base_url('logout') ?>" title="Logout" onclick="javasciprt:return confirm('Are You Sure ?')" title="Logout"><i class="fas fa-power-off"></i></a></li>
       <?php endif ?>
     </ul>

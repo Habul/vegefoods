@@ -59,6 +59,7 @@ $route['blog'] = 'welcome/blog';
 $route['about'] = 'welcome/about';
 $route['login'] = 'welcome/login';
 $route['cart'] = 'welcome/cart';
+$route['address'] = 'welcome/address';
 $route['logout'] = 'login/logout';
 $route['register'] = 'welcome/register';
 $route['dashboard'] = 'dashboard/index';

@@ -16,6 +16,20 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/`vegefoods` /*!40100 DEFAULT CHARACTER S
 
 USE `vegefoods`;
 
+/*Table structure for table `address` */
+
+DROP TABLE IF EXISTS `address`;
+
+CREATE TABLE `address` (
+  `id_pengguna` int(11) NOT NULL,
+  `address` text,
+  `addtime` datetime DEFAULT NULL,
+  `updtime` datetime DEFAULT NULL,
+  PRIMARY KEY (`id_pengguna`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `address` */
+
 /*Table structure for table `blog` */
 
 DROP TABLE IF EXISTS `blog`;
@@ -46,7 +60,7 @@ CREATE TABLE `d_transaksi` (
   `jumlah` int(11) DEFAULT NULL,
   `harga` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=latin1;
 
 /*Data for the table `d_transaksi` */
 
@@ -83,7 +97,17 @@ insert  into `d_transaksi`(`id`,`id_tran`,`id_produk`,`jumlah`,`harga`) values
 (63,13,0,NULL,10000),
 (64,14,34,5,125000),
 (65,14,0,NULL,10000),
-(66,15,33,1,17500);
+(68,15,31,2,24000),
+(69,15,0,NULL,10000),
+(74,16,33,2,35000),
+(75,16,0,NULL,10000),
+(76,17,30,2,24000),
+(77,17,0,NULL,10000),
+(78,18,29,1,27000),
+(79,18,0,NULL,8000),
+(80,19,34,2,50000),
+(81,19,33,1,17500),
+(82,19,0,NULL,10000);
 
 /*Table structure for table `h_transaksi` */
 
@@ -92,6 +116,7 @@ DROP TABLE IF EXISTS `h_transaksi`;
 CREATE TABLE `h_transaksi` (
   `id` int(11) NOT NULL,
   `id_pengguna` varchar(255) DEFAULT NULL,
+  `id_penjual` varchar(255) DEFAULT NULL,
   `status` int(11) DEFAULT '0',
   `alamat` text,
   `ongkir` int(11) DEFAULT '0',
@@ -102,20 +127,24 @@ CREATE TABLE `h_transaksi` (
 
 /*Data for the table `h_transaksi` */
 
-insert  into `h_transaksi`(`id`,`id_pengguna`,`status`,`alamat`,`ongkir`,`note`,`addtime`) values 
-(3,'9',3,'jalan pada suka',1,NULL,'2023-06-17 17:06:07'),
-(4,'9',3,'jalan ciater pamulang kota tangerang selatan',1,NULL,'2023-06-24 09:06:32'),
-(5,'9',3,'test',1,NULL,'2023-06-24 09:06:55'),
-(6,'10',3,'jalan janji jiwa no 85',1,NULL,'2023-06-24 09:06:59'),
-(7,'11',3,'jalan indomaret tangerang 1',1,NULL,'2023-07-01 04:07:17'),
-(8,'9',3,'jalan pada suka2',1,NULL,'2023-08-08 14:08:08'),
-(9,'9',3,'jalan pada suka ',1,NULL,'2023-08-09 09:08:52'),
-(10,'9',3,'jalan kadu bitung',1,NULL,'2023-08-10 10:08:58'),
-(11,'9',3,'xxxxx',1,NULL,'2023-08-10 11:08:17'),
-(12,'9',3,'wwwwwwwwwwwww',1,NULL,'2023-08-10 12:08:07'),
-(13,'11',3,'jalan pemda curug no 1a',1,'sayuran sudah layu','2023-08-11 02:08:57'),
-(14,'9',3,NULL,1,NULL,'2023-09-16 14:09:23'),
-(15,'9',0,'jalan pamulang no 1a',0,NULL,'2023-09-17 13:09:18');
+insert  into `h_transaksi`(`id`,`id_pengguna`,`id_penjual`,`status`,`alamat`,`ongkir`,`note`,`addtime`) values 
+(3,'9','2',3,'jalan pada suka',1,NULL,'2023-06-17 17:06:07'),
+(4,'9','2',3,'jalan ciater pamulang kota tangerang selatan',1,NULL,'2023-06-24 09:06:32'),
+(5,'9','2',3,'test',1,NULL,'2023-06-24 09:06:55'),
+(6,'10','2',3,'jalan janji jiwa no 85',1,NULL,'2023-06-24 09:06:59'),
+(7,'11','2',3,'jalan indomaret tangerang 1',1,NULL,'2023-07-01 04:07:17'),
+(8,'9','2',3,'jalan pada suka2',1,NULL,'2023-08-08 14:08:08'),
+(9,'9','2',3,'jalan pada suka ',1,NULL,'2023-08-09 09:08:52'),
+(10,'9','2',3,'jalan kadu bitung',1,NULL,'2023-08-10 10:08:58'),
+(11,'9','2',3,'xxxxx',1,NULL,'2023-08-10 11:08:17'),
+(12,'9','2',3,'wwwwwwwwwwwww',1,NULL,'2023-08-10 12:08:07'),
+(13,'11','2',3,'jalan pemda curug no 1a',1,'sayuran sudah layu','2023-08-11 02:08:57'),
+(14,'9','2',3,NULL,1,NULL,'2023-09-16 14:09:23'),
+(15,'9','2',3,'jalan pamulang no 1a',1,'barang rusak','2023-09-17 13:09:18'),
+(16,'9','2',3,'jalan pamulang no 1a',1,NULL,'2023-09-17 14:09:39'),
+(17,'11','2',3,NULL,1,NULL,'2023-09-23 16:09:32'),
+(18,'11','2',3,NULL,1,NULL,'2023-09-23 16:09:51'),
+(19,'11','2',2,NULL,1,'barang rusak','2023-09-23 17:09:36');
 
 /*Table structure for table `pengguna` */
 
@@ -142,7 +171,7 @@ insert  into `pengguna`(`id`,`nama`,`email`,`password`,`no_hp`,`level`,`address`
 (6,'dosen','dosen@gmail.com','$2y$10$kKP3MOosShXib.cYf7BjhOvlOvrMWtWmoE.WOHOgpo3xdi2lDh/Y6','08623723231','pembeli',NULL),
 (7,'agus','agus@gmail.com','$2y$10$3f6r1sKI4tcsbjTqQOxMQ.1zStvyGx5f/xoehLZ0TiOFgIm/iZfUi','081314669379','pembeli',NULL),
 (8,'sudah','sudah@gmail.com','$2y$10$i5weFkrkV6.d7fxJOqLZGeH9bGGYGXK5C00X2erHXaPqJXCkkszkO','023023923','pembeli',NULL),
-(9,'beli','pembeli@gmail.com','$2y$10$D7a4XxbfUGQUEQGXTaAyTeA0MPCZwa2ePgnFP0TPlTE0dl9O0lYOu','087771911287','pembeli','jalan pamulang no 1a'),
+(9,'Budi','pembeli@gmail.com','$2y$10$D7a4XxbfUGQUEQGXTaAyTeA0MPCZwa2ePgnFP0TPlTE0dl9O0lYOu','087771911287','pembeli','jalan pamulang no 1a'),
 (10,'janji','janji@gmail.com','$2y$10$bZjTelwJFymOPP7kW9BMLOMif6.8vI8dfJS/uY0EHToce0fVufUXe','082323283928','pembeli',NULL),
 (11,'agung','agung@gmail.com','$2y$10$0Aaygah9cg4ls9uk1.G/e.Q7pceh.QmeBj5yLxMiJfMPApQu76ZOe','083832932839','pembeli',NULL);
 
@@ -159,7 +188,7 @@ CREATE TABLE `produk` (
   `image` varchar(255) DEFAULT NULL,
   `detail` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=latin1;
 
 /*Data for the table `produk` */
 
@@ -176,14 +205,32 @@ insert  into `produk`(`id`,`nama_produk`,`stok`,`satuan`,`harga`,`image`,`detail
 (26,'Bayam',4,'ikat',5000,'bayam.jpeg','Bayam mengandung senyawa antioksidan, terutama beta-karoten, vitamin C, dan vitamin E. Antioksidan membantu melawan kerusakan sel akibat radikal bebas dan menjaga kesehatan jaringan tubuh. Ini dapat membantu mengurangi risiko penyakit degeneratif, seperti penyakit jantung, kanker, dan penuaan dini.'),
 (27,'toge',5,'kg',20000,'toge.jpg','Toge merupakan sayuran berkecambah yang kaya akan serat pangan. Serat memiliki peran penting dalam menjaga kesehatan pencernaan, mengatur pencernaan, dan mencegah sembelit. Konsumsi makanan yang kaya serat juga dapat membantu menjaga berat badan yang sehat dan mengatur kadar gula darah.'),
 (28,'brokoli',4,'kg',30000,'brokoli.jpg','Brokoli merupakan sayuran cruciferous yang kaya akan nutrisi penting seperti vitamin C, vitamin K, vitamin A, folat, serat, dan senyawa antioksidan. Nutrisi-nutrisi ini penting untuk menjaga kesehatan umum tubuh dan mendukung fungsi tubuh yang optimal.'),
-(29,'kentang',5,'kg',27000,'kentang.jpeg','Kentang merupakan sumber karbohidrat kompleks yang mengandung pati dan serat pangan. Karbohidrat adalah sumber energi utama bagi tubuh. Konsumsi kentang dapat memberikan energi yang tahan lama dan membantu menjaga keseimbangan gula darah.'),
-(30,'wortel',7,'kg',12000,'wortel.jpeg',' Wortel mengandung beta-karoten, yang merupakan senyawa pigmen yang memberikan warna oranye pada wortel. Beta-karoten adalah prekursor vitamin A dalam tubuh, yang penting untuk kesehatan mata. Setelah dikonsumsi, tubuh mengubah beta-karoten menjadi vitamin A yang digunakan untuk menjaga kesehatan retina, meningkatkan penglihatan di malam hari, dan memelihara kesehatan mata secara keseluruhan.'),
+(29,'kentang',4,'kg',27000,'kentang.jpeg','Kentang merupakan sumber karbohidrat kompleks yang mengandung pati dan serat pangan. Karbohidrat adalah sumber energi utama bagi tubuh. Konsumsi kentang dapat memberikan energi yang tahan lama dan membantu menjaga keseimbangan gula darah.'),
+(30,'wortel',5,'kg',12000,'wortel.jpeg',' Wortel mengandung beta-karoten, yang merupakan senyawa pigmen yang memberikan warna oranye pada wortel. Beta-karoten adalah prekursor vitamin A dalam tubuh, yang penting untuk kesehatan mata. Setelah dikonsumsi, tubuh mengubah beta-karoten menjadi vitamin A yang digunakan untuk menjaga kesehatan retina, meningkatkan penglihatan di malam hari, dan memelihara kesehatan mata secara keseluruhan.'),
 (31,'kol',5,'kg',12000,'kol.jpg','Kol mengandung senyawa antioksidan, terutama glukosinolat dan vitamin C. Antioksidan membantu melawan kerusakan sel akibat radikal bebas dan menjaga kesehatan jaringan tubuh. Senyawa glukosinolat dalam kol juga memiliki potensi anti-kanker dan kemampuan detoksifikasi dalam tubuh.'),
 (32,'labu',5,'kg',11500,'labu.jpg','Labu mengandung serat pangan yang tinggi. Serat merupakan komponen penting dalam makanan yang membantu menjaga kesehatan pencernaan. Konsumsi makanan yang kaya serat dapat membantu mencegah sembelit, menjaga kesehatan usus, dan mengatur tingkat gula darah. Selain itu, serat juga memberikan rasa kenyang lebih lama, sehingga dapat membantu dalam pengelolaan berat badan.'),
-(33,'paprika',5,'kg',17500,'paprika.jpg','Paprika mengandung senyawa antioksidan, terutama vitamin C. Antioksidan membantu melawan kerusakan sel akibat radikal bebas dan menjaga kesehatan jaringan tubuh. Vitamin C juga memiliki peran penting dalam memperkuat sistem kekebalan tubuh dan menjaga kesehatan kulit.'),
-(34,'tomat',3,'kg',25000,'tomat.jpg','Tomat mengandung likopen, yaitu senyawa pigmen yang memberikan warna merah pada tomat. Likopen merupakan antioksidan kuat yang dapat membantu melindungi sel-sel tubuh dari kerusakan akibat radikal bebas. Likopen juga dikaitkan dengan berbagai manfaat kesehatan, termasuk mengurangi risiko penyakit jantung, beberapa jenis kanker, dan penyakit degeneratif.'),
+(33,'paprika',2,'kg',17500,'paprika.jpg','Paprika mengandung senyawa antioksidan, terutama vitamin C. Antioksidan membantu melawan kerusakan sel akibat radikal bebas dan menjaga kesehatan jaringan tubuh. Vitamin C juga memiliki peran penting dalam memperkuat sistem kekebalan tubuh dan menjaga kesehatan kulit.'),
+(34,'tomat',1,'kg',25000,'tomat.jpg','Tomat mengandung likopen, yaitu senyawa pigmen yang memberikan warna merah pada tomat. Likopen merupakan antioksidan kuat yang dapat membantu melindungi sel-sel tubuh dari kerusakan akibat radikal bebas. Likopen juga dikaitkan dengan berbagai manfaat kesehatan, termasuk mengurangi risiko penyakit jantung, beberapa jenis kanker, dan penyakit degeneratif.'),
 (35,'labu siam',10,'kg',15000,'labusiem.jpg','Labu siam mengandung serat pangan yang tinggi. Serat penting untuk menjaga kesehatan pencernaan, mencegah sembelit, dan menjaga keseimbangan gula darah. Serat juga membantu memberikan rasa kenyang lebih lama, sehingga dapat membantu dalam pengelolaan berat badan.'),
 (36,'daun pepaya',10,'ikat',5000,'daun_pepaya2.jpg','Daun pepaya mengandung enzim papain yang dapat membantu memecah protein dalam makanan, sehingga memfasilitasi pencernaan dan penyerapan nutrisi. Konsumsi daun pepaya secara teratur dapat membantu mengurangi gejala gangguan pencernaan seperti kembung, konstipasi, dan gangguan pencernaan lainnya.');
+
+/*Table structure for table `r_transaksi` */
+
+DROP TABLE IF EXISTS `r_transaksi`;
+
+CREATE TABLE `r_transaksi` (
+  `id` int(11) NOT NULL,
+  `id_pengguna` varchar(255) DEFAULT NULL,
+  `id_penjual` varchar(255) DEFAULT NULL,
+  `note` text,
+  `addtime` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `r_transaksi` */
+
+insert  into `r_transaksi`(`id`,`id_pengguna`,`id_penjual`,`note`,`addtime`) values 
+(19,'11','2','barang rusak','2023-09-23 17:09:03');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

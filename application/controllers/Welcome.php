@@ -254,7 +254,7 @@ class Welcome extends CI_Controller
         $data['header']  = $this->m_data->shop('id_detil', ['id_pengguna' => $this->session->userdata('id'), 'status!=' => '3'])->row();
         $data['cart']    = $this->m_data->shop('id_detil', ['id_pengguna' => $this->session->userdata('id'), 'status!=' => '3'])->result();
         $data['total']   = $this->m_data->shop('id_detil', ['id_pengguna' => $this->session->userdata('id'), 'status!=' => '3', 'id_produk!=' => '0'])->num_rows();
-        $data['penjual'] = $this->m_data->edit_data(['id' => '2'], 'pengguna')->row();
+        $data['penjual'] = $this->m_data->edit_data(['level' => 'penjual'], 'pengguna')->row();
         $this->load->view('frontend/v_header', $data);
         $this->load->view('frontend/v_cart', $data);
         $this->load->view('frontend/v_footer');
@@ -322,8 +322,10 @@ class Welcome extends CI_Controller
 
     public function retur()
     {
-        $id     = $this->input->post('id');
-        $note   = $this->input->post('note');
+        $id    = $this->input->post('id');
+        $note  = $this->input->post('note');
+        $id_pengguna = $this->input->post('id_pengguna');
+        $id_penjual = $this->input->post('id_penjual');
 
         $data =
             [
@@ -331,7 +333,17 @@ class Welcome extends CI_Controller
                 'status' => '5'
             ];
 
+        $data2 =
+            [
+                'id'    => $id,
+                'note'  => $note,
+                'id_pengguna' => $id_pengguna,
+                'id_penjual'  => $id_penjual,
+                'addtime'   => date('Y-m-d H:m:s')
+            ];
+
         $this->m_data->update_data(['id' => $id], $data, 'h_transaksi');
+        $this->m_data->insert_data($data2, 'r_transaksi');
         redirect(base_url('cart'));
     }
 
@@ -347,5 +359,13 @@ class Welcome extends CI_Controller
         $this->load->view('frontend/v_header');
         $this->load->view('frontend/v_register');
         $this->load->view('frontend/v_footer');
+    }
+
+    public function address()
+    {
+        $data['address'] = $this->m_data->get_data('address')->result();
+        $this->load->view('frontend/v_header', $data);
+        $this->load->view('frontend/v_address', $data);
+        $this->load->view('frontend/v_footer', $data);
     }
 }
