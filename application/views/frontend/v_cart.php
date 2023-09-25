@@ -9,12 +9,14 @@
   <div class="d-flex justify-content-between">
     <div class="card col-4">
       <div class="card-body">
-        <span class="fw-semibold">Transaction code : VGF-<?= $header->id_pengguna . '.' . $header->id ?></span>
+        <span class="fw-semibold align-middle">Transaction code : VGF-<?= $header->id_pengguna . '.' . $header->id ?></span>
       </div>
     </div>
     <div class="card col-6">
       <div class="card-body">
-        <span class="fw-semibold">Address : <?= ucwords($header->alamat) ?></span>
+        <span class="fw-semibold">Address : <?= ucwords($header->alamat) ?>&emsp;
+          <a class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#address" title="Choose Address"><i class="fas fa-map-marked-alt"></i></a>
+        </span>
       </div>
     </div>
   </div>
@@ -99,7 +101,6 @@
       <?php if ($total != 0) : ?>
         <div class="d-flex justify-content-end">
           <?php if ($header->status == 0 && $header->ongkir == 0) : ?>
-            <!-- <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#address"><i class="fas fa-map"></i> Edit address</button> -->
             <?= anchor(
               site_url('welcome/checkout/' . $c->id),
               '<i class="fas fa-check"></i> Checkout',
@@ -122,28 +123,6 @@
 
 <!-- Modal -->
 <?php foreach ($cart as $c) : ?>
-  <!-- <div class="modal fade" id="address" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h3 class="modal-title fs-5" id="exampleModalLabel">Address</h3>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <?= form_open(base_url('welcome/add_distance')); ?>
-        <div class="modal-body">
-          <div class="form-group mb-2">
-            <input type="hidden" name="id" value="<?= $c->id ?>">
-            <textarea name="alamat" class="form-control" rows="3"><?= $c->alamat ?></textarea>
-          </div>
-        </div>
-        <div class="modal-footer justify-content-center">
-          <button class="btn btn-primary"><i class="fa fa-check"></i> Save</button>
-        </div>
-        <?= form_close(); ?>
-      </div>
-    </div>
-  </div> -->
-
   <div class="modal fade" id="retur" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
       <div class="modal-content">
@@ -171,3 +150,26 @@
     </div>
   </div>
 <?php endforeach ?>
+
+<div class="modal fade" id="address" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title fs-5" id="exampleModalLabel">Choose Address</h3>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <?= form_open(base_url('welcome/set_address')); ?>
+      <div class="modal-body">
+        <select name="id" class="form-select">
+          <?php foreach ($address as $ad) : ?>
+            <option value="<?= $ad->id ?>"><?= $ad->alamat ?></option>
+          <?php endforeach ?>
+        </select>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button class="btn btn-info col-6"><i class="fa fa-check"></i> Yes</button>
+      </div>
+      <?= form_close(); ?>
+    </div>
+  </div>
+</div>

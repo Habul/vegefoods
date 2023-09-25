@@ -119,13 +119,14 @@ class Welcome extends CI_Controller
                 $id_pengguna = $this->session->userdata('id');
                 $id_tran     = $this->input->post('id_tran');
                 $cekstok     = $this->m_data->edit_data(['id' => $id_produk], 'produk')->row();
+                $cekalamat   = $this->m_data->edit_data(['id_pengguna' => $this->session->userdata('id'), 'pilih' => '1'], 'alamat')->row();
 
                 $data_h =
                     [
                         'id'           => $id_tran + 1,
                         'id_pengguna'  => $id_pengguna,
                         'addtime'      => date('Y-m-d H:m:s'),
-                        'alamat'       => $this->session->userdata('addr')
+                        'alamat'       => $cekalamat->alamat
                     ];
 
                 $data_d =
@@ -254,34 +255,11 @@ class Welcome extends CI_Controller
         $data['header']  = $this->m_data->shop('id_detil', ['id_pengguna' => $this->session->userdata('id'), 'status!=' => '3'])->row();
         $data['cart']    = $this->m_data->shop('id_detil', ['id_pengguna' => $this->session->userdata('id'), 'status!=' => '3'])->result();
         $data['total']   = $this->m_data->shop('id_detil', ['id_pengguna' => $this->session->userdata('id'), 'status!=' => '3', 'id_produk!=' => '0'])->num_rows();
+        $data['address'] = $this->m_data->edit_data(['id_pengguna' => $this->session->userdata('id')], 'alamat')->result();
         $data['penjual'] = $this->m_data->edit_data(['level' => 'penjual'], 'pengguna')->row();
         $this->load->view('frontend/v_header', $data);
         $this->load->view('frontend/v_cart', $data);
         $this->load->view('frontend/v_footer');
-    }
-
-    public function add_distance()
-    {
-        $this->form_validation->set_rules('alamat', 'Alamat', 'required');
-
-        if ($this->form_validation->run() != false) {
-            $id     = $this->input->post('id');
-            $alamat = $this->input->post('alamat');
-            $user   = $this->session->userdata('id');
-
-            $data =
-                [
-                    'alamat' => $alamat,
-                ];
-
-            $this->m_data->update_data(['id' => $id], $data, 'h_transaksi');
-            $this->m_data->update_data(['id' => $user], ['address' => $alamat], 'pengguna');
-            $this->session->set_flashdata('berhasil', 'Successfully added address !');
-            redirect(base_url('cart'));
-        } else {
-            $this->session->set_flashdata('gagal', 'Failed to add address !');
-            redirect(base_url('cart'));
-        }
     }
 
     public function history()
@@ -300,11 +278,17 @@ class Welcome extends CI_Controller
     public function delete($id)
     {
         $cekstok = $this->m_data->shop('id_detil', ['id_pengguna' => $this->session->userdata('id'), 'status!=' => '3'])->row();
+        $cekh    = $this->m_data->shop('id_detil', ['id_pengguna' => $this->session->userdata('id'), 'status!=' => '3']);
 
         $update = $cekstok->jumlah + $cekstok->stok;
 
         $this->m_data->update_data(['id' => $cekstok->id_produk], ['stok' => $update], 'produk');
         $this->m_data->delete_data(['id' => $id], 'd_transaksi');
+
+        if ($cekh->num_rows() == 1) {
+            $this->m_data->delete_data(['id' => $cekstok->id], 'h_transaksi');
+        }
+
         redirect(base_url('cart'));
     }
 
@@ -363,9 +347,116 @@ class Welcome extends CI_Controller
 
     public function address()
     {
-        $data['address'] = $this->m_data->get_data('address')->result();
+        $data['address']   = $this->m_data->edit_data(['id_pengguna' => $this->session->userdata('id')], 'alamat')->result();
+        $data['count_add'] = $this->m_data->edit_data(['id_pengguna' => $this->session->userdata('id')], 'alamat')->num_rows();
+        $data['total']     = $this->m_data->shop('id_detil', ['id_pengguna' => $this->session->userdata('id'), 'status!=' => '3', 'id_produk!=' => '0'])->num_rows();
         $this->load->view('frontend/v_header', $data);
         $this->load->view('frontend/v_address', $data);
         $this->load->view('frontend/v_footer', $data);
+    }
+
+    public function add_address()
+    {
+        $this->form_validation->set_rules('alamat', 'Address', 'required');
+
+        if ($this->form_validation->run() != false) {
+            $id      = $this->session->userdata('id');
+            $alamat = $this->input->post('alamat');
+
+            $data =
+                [
+                    'id_pengguna' => $id,
+                    'alamat'      => $alamat,
+                ];
+
+            $this->m_data->insert_data($data, 'alamat');
+            redirect(base_url('address'));
+        } else {
+            redirect(base_url('address'));
+        }
+    }
+
+    public function edit_address()
+    {
+        $this->form_validation->set_rules('alamat', 'Address', 'required');
+
+        if ($this->form_validation->run() != false) {
+            $id          = $this->input->post('id');
+            $id_pengguna = $this->session->userdata('id');
+            $alamat = $this->input->post('alamat');
+
+            $where =
+                [
+                    'id'          => $id,
+                    'id_pengguna' => $id_pengguna
+                ];
+
+            $data =
+                [
+                    'alamat' => $alamat,
+                ];
+
+            $this->m_data->update_data($where, $data, 'alamat');
+            redirect(base_url('address'));
+        } else {
+            redirect(base_url('address'));
+        }
+    }
+
+    public function del_address()
+    {
+        $id = $this->input->post('id');
+        $this->m_data->delete_data(['id' => $id], 'alamat');
+        redirect(base_url('address'));
+    }
+
+    public function choose_address()
+    {
+        $this->m_data->edit_data(['id_pengguna' => $this->session->userdata('id')], 'alamat')->result();
+        $id          = $this->input->post('id');
+        $id_pengguna = $this->session->userdata('id');
+
+        $where =
+            [
+                'id' => $id,
+                'id_pengguna' => $id_pengguna
+            ];
+
+        $where2 =
+            [
+                'id!=' => $id,
+                'id_pengguna' => $id_pengguna
+            ];
+
+        $this->m_data->update_data($where, ['pilih' => '1'], 'alamat');
+        $this->m_data->update_data($where2, ['pilih' => '0'], 'alamat');
+        $this->m_data->update_data(['id' => $id_pengguna], ['id_alamat' => $id], 'pengguna');
+        redirect(base_url('address'));
+    }
+
+    public function set_address()
+    {
+        $id          = $this->input->post('id');
+        $id_pengguna = $this->session->userdata('id');
+        $cek         = $this->m_data->edit_data(['id' => $id], 'alamat')->row();
+        $cektrx      = $this->m_data->shop('id_detil', ['id_pengguna' => $this->session->userdata('id'), 'status!=' => '3'])->row();
+
+        $where =
+            [
+                'id' => $id,
+                'id_pengguna' => $id_pengguna
+            ];
+
+        $where2 =
+            [
+                'id!=' => $id,
+                'id_pengguna' => $id_pengguna
+            ];
+
+        $this->m_data->update_data($where, ['pilih' => '1'], 'alamat');
+        $this->m_data->update_data($where2, ['pilih' => '0'], 'alamat');
+        $this->m_data->update_data(['id' => $id_pengguna], ['id_alamat' => $id], 'pengguna');
+        $this->m_data->update_data(['id' => $cektrx->id], ['alamat' => $cek->alamat], 'h_transaksi');
+        redirect(base_url('cart'));
     }
 }

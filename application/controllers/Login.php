@@ -60,11 +60,12 @@ class Login extends CI_Controller
         $this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password]');
 
         if ($this->form_validation->run() != false) {
-            $nama = $this->input->post('name');
-            $email = $this->input->post('email');
-            $no_hp = $this->input->post('no_hp');
-            $address = $this->input->post('address');
+            $nama     = $this->input->post('name');
+            $email    = $this->input->post('email');
+            $no_hp    = $this->input->post('no_hp');
+            $address  = $this->input->post('address');
             $password = password_hash($this->input->post('password'), PASSWORD_DEFAULT);
+            $alamatid = $this->db->select_max('id')->get('alamat')->row();
 
             $data =
                 [
@@ -74,6 +75,7 @@ class Login extends CI_Controller
                     'address'  => $address,
                     'password' => $password,
                     'level'    => 'pembeli',
+                    'id_alamat' => $alamatid->id
                 ];
 
             $this->m_data->insert_data($data, 'pengguna');
@@ -87,6 +89,7 @@ class Login extends CI_Controller
             $this->session->set_userdata('addr', $cek->address);
             $this->session->set_userdata('level', $cek->level);
             $this->session->set_userdata('status', 'hm_log');
+            $this->m_data->insert_data(['id_pengguna' => $cek->id, 'alamat' => $cek->address, 'pilih' => '1'], 'alamat');
             redirect(base_url('/'));
         } else {
             redirect(base_url() . 'login/welcome?alert=not_registered');
