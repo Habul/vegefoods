@@ -15,7 +15,9 @@
     <div class="card col-6">
       <div class="card-body">
         <span class="fw-semibold">Address : <?= ucwords($header->alamat) ?>&emsp;
-          <a class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#address" title="Choose Address"><i class="fas fa-map-marked-alt"></i></a>
+          <?php if ($header->status == 0) : ?>
+            <a class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#address" title="Choose Address"><i class="fas fa-map-marked-alt"></i></a>
+          <?php endif ?>
         </span>
       </div>
     </div>
@@ -132,18 +134,19 @@
         </div>
         <?= form_open(base_url('welcome/retur')); ?>
         <div class="modal-body">
-          <div class="form-group mb-2">
+          <div class="form-group">
             <input type="hidden" name="id" value="<?= $c->id ?>">
             <input type="hidden" name="id_penjual" value="<?= $c->id_penjual ?>">
             <input type="hidden" name="id_pengguna" value="<?= $c->id_pengguna ?>">
             <textarea name="note" class="form-control" rows="2"><?= $c->note ?></textarea>
             <small>Note : If retur please send to alamat this <?= ucwords($penjual->address) ?> and please contact
               <a href="https://wa.me/62<?= substr($settings->phone, 1) ?>" target="_blank" title="Chat Whatsapp"><i class="fab fa-whatsapp"></i></a> for confirmation
+              and return shipping costs are borne by the seller.
             </small>
           </div>
         </div>
         <div class="modal-footer justify-content-center">
-          <button class="btn btn-warning col-6"><i class="fa fa-check"></i> Save</button>
+          <button class="btn btn-warning col-6"><i class="fa fa-check"></i> Retur</button>
         </div>
         <?= form_close(); ?>
       </div>
