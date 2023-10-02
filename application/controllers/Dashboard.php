@@ -20,7 +20,11 @@ class Dashboard extends CI_Controller
         $data['delivery'] = $this->m_data->edit_data(['status' => '2'], 'h_transaksi')->num_rows();
         $data['complete'] = $this->m_data->edit_data(['status' => '3'], 'h_transaksi')->num_rows();
         $data['produk'] = $this->m_data->get_data('produk')->num_rows();
-        // $data['total_user'] = $this->m_data->get_data('pengguna')->num_rows();
+
+        $now   = date('Y-m-d');
+        $date2 = date('Y-m-d', strtotime('-2 days', strtotime($now)));
+        $this->m_data->update_data(['status' => '2', 'addtime<=' => $date2], ['status' => '3'], 'h_transaksi');
+
         $this->load->view('dashboard/v_header', $data);
         $this->load->view('dashboard/v_index', $data);
         $this->load->view('dashboard/v_footer', $data);

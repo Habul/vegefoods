@@ -111,7 +111,6 @@ class Welcome extends CI_Controller
             $cek2 = $this->db->where(['id_pengguna' => $this->session->userdata('id'), 'status' => '1'])->get('h_transaksi')->num_rows();
             $cek3 = $this->db->where(['id_pengguna' => $this->session->userdata('id'), 'status' => '2'])->get('h_transaksi')->num_rows();
 
-
             if ($cek == 0 && $cek2 == 0 && $cek3 == 0) {
                 $id_produk   = $this->input->post('id_produk');
                 $jumlah      = $this->input->post('jumlah');
@@ -148,7 +147,7 @@ class Welcome extends CI_Controller
                 redirect(base_url('shop'));
             } else {
 
-                $cek2 = $this->db->where(['id_pengguna' => $this->session->userdata('id'), 'status' => '1'])->get('h_transaksi')->num_rows();
+                $cek2 = $this->db->where(['id_pengguna' => $this->session->userdata('id'), 'status' => '1', 'ongkir' => '1'])->get('h_transaksi')->num_rows();
                 $cek3 = $this->db->where(['id_pengguna' => $this->session->userdata('id'), 'status' => '2'])->get('h_transaksi')->num_rows();
 
                 if ($cek2 != 0 || $cek3 != 0) {
