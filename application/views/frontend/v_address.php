@@ -6,7 +6,7 @@
 
 
 <section id="product1" class="section-p1">
-  <?php if ($count_add <= 2) : ?>
+  <?php if ($count_add <= 4) : ?>
     <div class="d-flex justify-content-between">
       <button class="btn btn-default" data-bs-toggle="modal" data-bs-target="#add"><i class="fas fa-plus-circle"></i> Address</button>
     </div>

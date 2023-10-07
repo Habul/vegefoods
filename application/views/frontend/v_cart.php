@@ -140,7 +140,7 @@
             <input type="hidden" name="id_pengguna" value="<?= $c->id_pengguna ?>">
             <textarea name="note" class="form-control" rows="2"><?= $c->note ?></textarea>
             <small>Note : If retur please send to alamat this <?= ucwords($penjual->address) ?> and please contact
-              <a href="https://wa.me/62<?= substr($settings->phone, 1) ?>" target="_blank" title="Chat Whatsapp"><i class="fab fa-whatsapp"></i></a> for confirmation
+              <a href="https://wa.me/62<?= substr($penjual->no_hp, 1) ?>" target="_blank" title="Chat Whatsapp"><i class="fab fa-whatsapp"></i></a> for confirmation
               and return shipping costs are borne by the seller.
             </small>
           </div>

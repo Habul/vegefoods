@@ -47,6 +47,7 @@
                               <th>Produk</th>
                               <th>Qty</th>
                               <th>Price</th>
+                              <th>Note</th>
                               <th>Status</th>
                            </tr>
                         </thead>
@@ -94,6 +95,7 @@
                                  <?php endforeach ?>
                               </td>
                               <td class="align-middle text-center"><?= number_format($sum2->harga, 0, ",", ".") ?></td>
+                              <td class="align-middle text-center"><?= ucfirst($u->note) ?></td>
                               <td class="align-middle text-center">
                                  <span class="badge badge-warning">Retur</span>
                               </td>
