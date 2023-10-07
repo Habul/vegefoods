@@ -96,6 +96,8 @@
               Note: Please add a description when transferring if you have already paid, <br>please ignore it and wait for the seller to deliver
             <?php elseif ($header->status == 1 && $header->ongkir == 0) : ?>
               Wait for the seller to add postage
+            <?php elseif ($header->status == 2 && $header->ongkir == 1) : ?>
+              Note: Auto confirm if the order has been received after 2 days
             <?php endif ?>
           </td>
         </tr>
